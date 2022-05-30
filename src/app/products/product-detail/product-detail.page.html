@@ -1,0 +1,65 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>product-detail</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <img src="{{product.imagen}}" class="logo">
+
+  <p class="title">
+    <span [style.color]="'#'+ this.configModel.primaryColor">{{firstName}} </span>
+    <span [style.color]="'#'+ this.configModel.primaryColor"
+      [style.font-family]="'Barlow_Condensed_Black'">{{secondName}}</span>
+  </p>
+
+  <p class="description" [style.color]="'#'+ this.configModel.primaryColor">{{product.description}}</p>
+  <p class="subTitle" [style.color]="'#'+ this.configModel.primaryColor">{{product.typesSelection}}</p>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let post of product.variants">
+        <div class="card card-1">
+          <img src="{{post.logo}}" class="logoVariant">
+          <p [style.color]="'#'+ this.configModel.primaryColor">{{post.name}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+  <p class="subTitle" [style.color]="'#'+ this.configModel.primaryColor">Cantidad</p>
+
+  <div class="controller">
+    <ion-icon name="remove-circle-outline" (click)=modifyQuantity(false)
+      [style.color]="'#'+ this.configModel.primaryColor"></ion-icon>
+    <span class="controller" *ngIf="cantidad >= 1"
+      [style.color]="'#'+ this.configModel.primaryColor">{{cantidad}}</span>
+    <ion-icon class="controller" name="trash-outline" *ngIf="cantidad == 0"
+      [style.color]="'#'+ this.configModel.primaryColor">
+    </ion-icon>
+    <ion-icon name="add-circle-outline" (click)=modifyQuantity(true) [style.color]="'#'+ this.configModel.primaryColor">
+    </ion-icon>
+  </div>
+
+  <button style="background-color: white;" (click)="modifyQuantity(true)">
+    <ion-icon name='add-circle-outline'></ion-icon>
+  </button>
+
+  <button class="add" [style.background-color]="'#'+ this.configModel.secundaryColor">
+    <ion-icon name="bag-handle-outline"></ion-icon>
+    AGREGAR, QUIERO OTRO {{firstName}}
+  </button>
+
+  <div>
+    <p [style.color]="'#'+ this.configModel.secundaryColor" class="price">
+      <span class="priceText">PRECIO</span><br>
+      <span class="priceNumber">$ {{product.price}}</span>
+    </p>
+    <button class="go" [style.background-color]="'#'+ this.configModel.primaryColor">
+      COMPRAR</button>
+  </div>
+
+
+</ion-content>

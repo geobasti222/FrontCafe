@@ -1,0 +1,120 @@
+ion-content {
+    --background: #fff;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+ion-title,
+ion-text,
+.title,
+.text,
+.description,
+.subTitle,
+.controller {
+    text-align: center;
+}
+
+.description {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.subTitle {
+    font-family: Barlow_Condensed_Regular;
+    font-size: 1.35em;
+}
+
+.controller {
+    margin-left: 5%;
+    margin-right: 5%;
+    font-family: Barlow_Condensed_Black;
+    font-size: 1.35em;
+}
+
+.logo {
+    width: 250px;
+    height: 250px;
+    display: block;
+    margin: auto;
+}
+
+.logoVariant{
+    width: 35px;
+    height: 35px;
+    display: block;
+    margin: auto;
+}
+
+.add {
+    width: 80%;
+    border-radius: 50px;
+    height: 6%;
+    margin-left: 5%;
+    position: absolute;
+    bottom: 15%;
+    font-family: Barlow_Condensed_Regular;
+    font-size: 15px;
+    letter-spacing: 4px;
+}
+
+.go {
+    width: 55%;
+    margin-left: 35%;
+}
+
+.price {
+    margin-left: 10%;
+    position: absolute;
+    bottom: 3%;
+}
+
+.priceText {
+    font-size: 12px;
+    font-family: Barlow_Condensed_Regular;
+}
+
+.priceNumber {
+    font-size: 35px;
+    font-family: Barlow_Condensed_Black;
+}
+
+
+
+
+.card {
+    //background: #703702;
+    border-radius: 15%;
+    //display: inline-block;
+    height: 85px;
+    width: 85px;
+    border: 1px solid #703702;
+    padding-top: 6%;
+    padding-bottom: 6%;
+    // margin: 1rem;
+    position: relative;
+    font-size: 12px;
+    font-family: Barlow_Condensed_Black;
+
+}
+ion-col{
+    text-align: center;
+    align-items: center;
+    vertical-align: middle;
+}
+.card-1 {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+.card-1:hover {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+ion-scroll[scrollX] {
+    white-space: nowrap;
+
+    .scroll-item {
+        display: inline-block;
+    }
+}

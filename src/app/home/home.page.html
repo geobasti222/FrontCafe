@@ -1,25 +1,14 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Inbox
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">
-        Inbox
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-list>
-    <app-message *ngFor="let message of getMessages()" [message]="message"></app-message>
-  </ion-list>
+<ion-content 
+  [style.background-image]="'url(' +  this.configModel.background + ')'" 
+  [style.background-size]="'cover'"
+  [style.background-repeat]="'no-repeat'">
+  <img src="{{ this.configModel.logo}}" class="logo">
+  <!-- <ion-button expand="block" class="go">EMPEZAR</ion-button> -->
+  <!-- <button class="go" [routerLink]="['/products']">EMPEZAR</button> -->
+  <!-- <button class="go" (click)="products()" style="background-color : #563517;">EMPEZAR</button> -->
+  <button class="go" 
+  (click)="products()" 
+  [style.background-color]="'#'+ this.configModel.primaryColor">
+  EMPEZAR 
+</button>
 </ion-content>
