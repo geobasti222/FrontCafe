@@ -44,6 +44,7 @@ ion-text,
     height: 35px;
     display: block;
     margin: auto;
+    color: #979797;
 }
 
 .add {
@@ -79,7 +80,19 @@ ion-text,
     font-family: Barlow_Condensed_Black;
 }
 
-
+.cardSelected {
+    background: #684a2e;
+    border-radius: 15%;
+    //display: inline-block;
+    height: 85px;
+    width: 85px;
+    border: 1px solid #703702;
+    padding-top: 6%;
+    padding-bottom: 6%;
+    // margin: 1rem;
+    position: relative;
+    font-size: 12px;
+    font-family: Barlow_Condensed_Black;}
 
 
 .card {
@@ -88,7 +101,8 @@ ion-text,
     //display: inline-block;
     height: 85px;
     width: 85px;
-    border: 1px solid #703702;
+    border: 1px solid #979797;
+    color:  #979797;
     padding-top: 6%;
     padding-bottom: 6%;
     // margin: 1rem;
@@ -102,14 +116,14 @@ ion-col{
     align-items: center;
     vertical-align: middle;
 }
-.card-1 {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
-}
+// .card-1 {
+//     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+//     transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+// }
 
-.card-1:hover {
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-}
+// .card-1:hover {
+//     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+// }
 
 ion-scroll[scrollX] {
     white-space: nowrap;

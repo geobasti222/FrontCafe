@@ -19,8 +19,10 @@
   <ion-grid>
     <ion-row>
       <ion-col *ngFor="let post of product.variants">
-        <div class="card card-1">
-          <img src="{{post.logo}}" class="logoVariant">
+        <div class="card" (click)="selectedVariant(post)"
+          [style.background]="post.selectect ? '#'+ this.configModel.secundaryColor : '#fff'">
+          <img src="{{post.logo}}" class="logoVariant"
+            [style.color]="post.selectect ? '#'+ this.configModel.primaryColor : '#fff'">
           <p [style.color]="'#'+ this.configModel.primaryColor">{{post.name}}</p>
         </div>
       </ion-col>
