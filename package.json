@@ -31,6 +31,7 @@
     "@ngx-translate/http-loader": "^7.0.0",
     "cordova-android": "10.1.2",
     "material-icons": "^1.11.0",
+    "ngx-skeleton-loader": "^5.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

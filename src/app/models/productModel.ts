@@ -6,6 +6,7 @@ export class ProductModel{
     description: string;
     typesSelection: string;
     multiSelection: boolean;
+    quantity?: number;
 
     variants?: VariantModel[];
 }

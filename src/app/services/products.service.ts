@@ -60,6 +60,16 @@ export class ProductsService {
                 background: 'http://190.63.18.91/cafe_tinto-2.jpg',
                 description: 'Nosotros creemos que el cafe debe ser tan simple o complejo como tu quieras.',
                 multiSelection: true,
+                variants: [
+                    {
+                        id : 1,
+                        logo : 'http://190.63.18.91/BotellaLeche.png',
+                        name : 'REGULAR',
+                        productId : 1,
+                        selectect : true,
+                        price : 2.5
+                    }
+                ]
             }
         ];
     constructor() { }

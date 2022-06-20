@@ -57,9 +57,10 @@
   <div>
     <p [style.color]="'#'+ this.configModel.secundaryColor" class="price">
       <span class="priceText">PRECIO</span><br>
-      <span class="priceNumber">$ {{product.price}}</span>
+      <span class="priceNumber">$ {{ price }}</span>
     </p>
-    <button class="go" [style.background-color]="'#'+ this.configModel.primaryColor">
+    <button class="go" [style.background-color]="'#'+ this.configModel.primaryColor"
+    (click)="addToCart()">
       COMPRAR</button>
   </div>
 

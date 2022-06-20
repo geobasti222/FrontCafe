@@ -1,6 +1,5 @@
-<ion-content 
-  [style.background-image]="'url(' +  this.configModel.background + ')'" 
-  [style.background-size]="'cover'"
+<ion-content *ngIf="this.configModel  !=  undefined ; else elseBlock"
+  [style.background-image]="'url(' +  this.configModel.background + ')'" [style.background-size]="'cover'"
   [style.background-repeat]="'no-repeat'">
   <img src="{{ this.configModel.logo}}" class="logo">
   <!-- <ion-button expand="block" class="go">EMPEZAR</ion-button> -->
@@ -9,9 +8,16 @@
 
 
 
-  <button class="go" 
-  (click)="products()" 
-  [style.background-color]="'#'+ this.configModel.primaryColor">
-  EMPEZAR 
-</button>
+  <button class="go" (click)="products()" [style.background-color]="'#'+ this.configModel.primaryColor">
+    EMPEZAR
+  </button>
+
 </ion-content>
+
+<ng-template #elseBlock>
+  <ion-content>
+    <div class="item">
+      <ngx-skeleton-loader count="5" appearance="circle"></ngx-skeleton-loader>
+    </div>
+  </ion-content>
+</ng-template>

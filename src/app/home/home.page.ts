@@ -23,9 +23,16 @@ export class HomePage {
 
   configModel : ConfigModel;
 
-  ngOnInit() {
+  ngOnInit() {    
     this.configModel = this.logginService.getConfig();  
   }
+
+  // ngOnInit() {
+  //   this.logginService.getConfig().then(data => { 
+  //     this.configModel = data;
+  //     console.log(data);
+  //   });  
+  // }
 
   refresh(ev) {
     setTimeout(() => {

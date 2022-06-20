@@ -7,8 +7,11 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+
 @NgModule({
   imports: [
+    NgxSkeletonLoaderModule,
     CommonModule,
     FormsModule,
     IonicModule,
