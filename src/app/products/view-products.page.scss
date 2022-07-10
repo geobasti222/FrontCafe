@@ -30,6 +30,19 @@ ion-slides {
   display: block;
 }
 
+
+.skeletonText {
+  margin-left: 20%;
+}
+.skeletonGo {
+  position: relative;
+  bottom: -55%;
+  margin-left: 15%;
+}
+.skeletonLogo{
+  margin-left: 30%;
+}
+
 // .swiper-slide h2 {
 //   margin-top: 2.8rem;
 // }
@@ -51,4 +64,3 @@ h1,
 h5 {
   text-shadow: 0px 0px 20px #000000;
 }
-

@@ -11,23 +11,24 @@ import { ProductModel } from '../models/productModel'
   styleUrls: ['./view-products.page.scss'],
 })
 export class ViewProductsPage implements OnInit {
-  slides : ProductModel[];
-  
+  slides: ProductModel[];
+
   constructor(
     private data: DataService,
     private router: Router,
     private productsService: ProductsService,
-  ) {   }
+  ) { }
   logo: string;
-  configModel : ConfigModel;
+  configModel: ConfigModel;
 
-  ngOnInit() {
-    this.configModel  = JSON.parse(localStorage.getItem('config'));
-    this.slides = this.productsService.getAllProducts();   
+  ngOnInit() {    
+    this.configModel = JSON.parse(localStorage.getItem('config'));
+    this.productsService.getAllProducts().then(data => {      
+      this.slides = data;
+    });
   }
 
-  productDetail(id : number){
-    console.log(id);
+  productDetail(id: number) {
     this.router.navigate(['/productDetail/' + id]);
   }
 }

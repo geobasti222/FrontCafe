@@ -4,8 +4,8 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-content>
-  <img src="{{product.imagen}}" class="logo">
+<ion-content *ngIf="this.product != undefined ; else elseBlock">
+  <img src="{{product.imagenReferencia}}" class="logo">
 
   <p class="title">
     <span [style.color]="'#'+ this.configModel.primaryColor">{{firstName}} </span>
@@ -13,23 +13,21 @@
       [style.font-family]="'Barlow_Condensed_Black'">{{secondName}}</span>
   </p>
 
-  <p class="description" [style.color]="'#'+ this.configModel.primaryColor">{{product.description}}</p>
-  <p class="subTitle" [style.color]="'#'+ this.configModel.primaryColor">{{product.typesSelection}}</p>
+  <p class="description" [style.color]="'#'+ this.configModel.primaryColor">{{product.descripcion}}</p>
+  <p class="subTitle" [style.color]="'#'+ this.configModel.primaryColor">{{product.tipoSeleccion}}</p>
 
   <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let post of product.variants">
+      <ion-col *ngFor="let post of product.category">
         <div class="card" (click)="selectedVariant(post)"
           [style.background]="post.selectect ? '#'+ this.configModel.secundaryColor : '#fff'">
-          <img src="{{post.logo}}" class="logoVariant"
+          <img src="{{post.image}}" class="logoVariant"
             [style.color]="post.selectect ? '#'+ this.configModel.primaryColor : '#fff'">
           <p [style.color]="'#'+ this.configModel.primaryColor">{{post.name}}</p>
         </div>
       </ion-col>
     </ion-row>
   </ion-grid>
-
-
 
   <p class="subTitle" [style.color]="'#'+ this.configModel.primaryColor">Cantidad</p>
 
@@ -49,7 +47,7 @@
     <ion-icon name='add-circle-outline'></ion-icon>
   </button>
 
-  <button class="add" [style.background-color]="'#'+ this.configModel.secundaryColor">
+  <button class="add" [style.background-color]="'#'+ this.configModel.secundaryColor" (click)="addToCart(true)">
     <ion-icon name="bag-handle-outline"></ion-icon>
     AGREGAR, QUIERO OTRO {{firstName}}
   </button>
@@ -59,10 +57,17 @@
       <span class="priceText">PRECIO</span><br>
       <span class="priceNumber">$ {{ price }}</span>
     </p>
-    <button class="go" [style.background-color]="'#'+ this.configModel.primaryColor"
-    (click)="addToCart()">
+    <button class="go" [style.background-color]="'#'+ this.configModel.primaryColor" (click)="addToCart(false)">
       COMPRAR</button>
   </div>
-
-
 </ion-content>
+
+
+<ng-template #elseBlock>
+  <ion-content style="background: rgb(165, 165, 165);">
+    <ngx-skeleton-loader count="1" appearance="circle" animation="progress-dark"
+      [theme]="{ height : '45%' , width  : '98%' }"></ngx-skeleton-loader>
+    <ngx-skeleton-loader count="1" appearance="line" animation="progress-dark" [theme]="{ height : '460px'}" class="go">
+    </ngx-skeleton-loader>
+  </ion-content>
+</ng-template>

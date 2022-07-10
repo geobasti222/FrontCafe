@@ -6,9 +6,11 @@ import { ViewProductsPage } from './view-products.page';
 import { IonicModule } from '@ionic/angular';
 
 import { ViewProductsPageRoutingModule } from './view-products-routing.module';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   imports: [
+    NgxSkeletonLoaderModule,
     CommonModule,
     FormsModule,
     IonicModule,

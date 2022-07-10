@@ -18,21 +18,20 @@ export class HomePage {
   constructor(
     private data: DataService,
     private router: Router,
-    private logginService : LogginService) {
+    private logginService: LogginService) {
   }
 
-  configModel : ConfigModel;
+  configModel: ConfigModel;
 
-  ngOnInit() {    
-    this.configModel = this.logginService.getConfig();  
+  ngOnInit() {
+    this.configModel = JSON.parse(localStorage.getItem('config'));
+    if (this.configModel == null || this.configModel == undefined) {
+      this.logginService.getConfig().then(data => {
+        this.configModel = data;
+        localStorage.setItem('config', JSON.stringify(data));
+      });
+    }
   }
-
-  // ngOnInit() {
-  //   this.logginService.getConfig().then(data => { 
-  //     this.configModel = data;
-  //     console.log(data);
-  //   });  
-  // }
 
   refresh(ev) {
     setTimeout(() => {
@@ -46,7 +45,6 @@ export class HomePage {
 
   products() {
     this.router.navigate(['/products']);
-    //window.location.reload();
   }
 
 }

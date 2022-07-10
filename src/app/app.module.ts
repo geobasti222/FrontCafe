@@ -13,6 +13,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -29,7 +32,10 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     })],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [Geolocation,
+    Geolocation,
+    NativeGeocoder,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

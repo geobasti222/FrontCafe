@@ -15,9 +15,10 @@
 </ion-content>
 
 <ng-template #elseBlock>
-  <ion-content>
-    <div class="item">
-      <ngx-skeleton-loader count="5" appearance="circle"></ngx-skeleton-loader>
-    </div>
+  <ion-content style="background: rgb(165, 165, 165);">
+    <ngx-skeleton-loader count="1" appearance="circle" animation="progress-dark"
+      [theme]="{ height : '45%' , width  : '98%' }"></ngx-skeleton-loader>
+    <ngx-skeleton-loader count="1" appearance="line" animation="progress-dark" [theme]="{ height : '60px'}" class="go">
+    </ngx-skeleton-loader>
   </ion-content>
 </ng-template>

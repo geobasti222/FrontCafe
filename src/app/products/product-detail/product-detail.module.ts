@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { ProductDetailPageRoutingModule } from './product-detail-routing.module';
 
 import { ProductDetailPage } from './product-detail.page';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   imports: [
+    NgxSkeletonLoaderModule,
     CommonModule,
     FormsModule,
     IonicModule,
     ProductDetailPageRoutingModule
   ],
-  declarations: [ProductDetailPage]
+  declarations: [ProductDetailPage],
 })
-export class ProductDetailPageModule {}
+export class ProductDetailPageModule { }

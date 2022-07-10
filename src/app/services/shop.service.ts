@@ -1,20 +1,21 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { ConfigModel } from '../models/configModel';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { ProductModel, VariantModel } from '../models/productModel';
+import { environment } from 'src/environments/environment';
+import { Marker } from '../models/markerModel';
 
 
 @Injectable({
     providedIn: 'root'
 })
-export class LogginService {
+export class ShopService {
 
     protected url: string = 'https://localhost:44388';
 
     constructor(private http: HttpClient) { }
 
-    getConfig(): Promise<any> {
-        return this.http.get<any>(this.url + '/Admin/FindConfigurationShop/' + environment.appCode)
+    public getShops(LatLong: string, idProducts: string): Promise<Marker[]> {
+        return this.http.get<Marker[]>(this.url + '/SubShop/FindProduct/' + LatLong + '/' + environment.appCode + '/' + idProducts)
             .toPromise()
             .then(res => res)
             .catch(err => {

@@ -6,25 +6,31 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-content>
+<ion-content *ngIf="this.slides  !=  undefined ; else elseBlock">
   <ion-slides pager="true" [options]="slideOpts">
     <ion-slide *ngFor="let slide of slides">
-
-      <ion-content [style.background-image]="'url(' + slide.background + ')'" [style.background-size]="'cover'"
+      <ion-content [style.background-image]="'url(' + slide.imagenFondo + ')'" [style.background-size]="'cover'"
         [style.background-repeat]="'no-repeat'">
-
         <img src="{{this.configModel.logo}}" class="logo">
 
         <div class="slide">
           <p class="text">¿QUE CAFE QUIERES HOY?</p>
-          <p class="title">{{slide.name}}</p>
+          <p class="title">{{slide.nombre}}</p>
         </div>
 
-        <button class="go" (click)="productDetail(slide.id)" 
+        <button class="go" (click)="productDetail(slide.id)"
           [style.background-color]="'#'+ this.configModel.primaryColor">
           SELECCIONAR</button>
       </ion-content>
-
     </ion-slide>
   </ion-slides>
 </ion-content>
+
+<ng-template #elseBlock>
+  <ion-content style="background: rgb(165, 165, 165); align-items: center;">
+    <ngx-skeleton-loader count="1" appearance="circle" animation="progress-dark" [theme]="{ height : '150px' , width  : '150px' }" class="skeletonLogo"></ngx-skeleton-loader>
+    <ngx-skeleton-loader count="1" appearance="line" animation="progress-dark" [theme]="{ height : '30px'  , width  : '60%'}" class="skeletonText"></ngx-skeleton-loader>
+    <ngx-skeleton-loader count="1" appearance="line" animation="progress-dark" [theme]="{ height : '50px' , width  : '60%'}" class="skeletonText"></ngx-skeleton-loader>
+    <ngx-skeleton-loader count="1" appearance="line" animation="progress-dark" [theme]="{ height : '60px' , width  : '70%'}" class="skeletonGo"></ngx-skeleton-loader>
+  </ion-content>
+</ng-template>

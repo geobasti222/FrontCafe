@@ -1,0 +1,104 @@
+<ion-header no-border color="translucent">
+</ion-header>
+
+<ion-content fullscreen force-overscroll="false">
+  <ion-toolbar slot="fixed" color="translucent">
+    <ion-searchbar color="light"></ion-searchbar>
+  </ion-toolbar>
+  <div #map id="map"></div>
+  
+  <ion-card class="popover-bottom" id="card" [style.height]="this.size">
+    <ion-card-header>
+      <button class="bottom-popover" (click)="changeSize()"></button>
+      <p class="title">
+        <span [style.color]="'#'+ this.configModel.secundaryColor">UBICA EL BARISTA </span>
+        <span [style.color]="'#'+ this.configModel.secundaryColor" [style.font-family]="'Barlow_Condensed_Black'">MÁS
+          CERCANO </span>
+      </p>
+    </ion-card-header>
+    <ion-card-content style="overflow:scroll">
+      <ion-list>
+        <ion-item *ngFor="let marks of markers">
+          <ion-avatar>
+            <img src="./assets/icon/favicon.png" />
+          </ion-avatar>
+
+          <p>
+            <span class="text" [style.color]="'#'+ this.configModel.secundaryColor"
+              [style.font-family]="'Barlow_Condensed_Black'">{{ marks.name }}</span>
+            <br>
+            <span class="subTitle" [style.color]="'#'+ this.configModel.secundaryColor">a 12 millas de distancia</span>
+          </p>
+
+          <div [style.background]="'#'+ this.configModel.secundaryColor" class="verticalLine"></div>
+
+          <p style="margin-right:10px;">
+            <span class="subTitle" [style.color]="'#'+ this.configModel.secundaryColor">Listo en:</span>
+            <br>
+            <span class="subTitle" [style.color]="'#'+ this.configModel.secundaryColor"
+              [style.font-family]="'Barlow_Condensed_Black'">12
+              mins.</span>
+          </p>
+          <button [style.background-color]="'#'+ this.configModel.secundaryColor" (click)="selectedMarker(marks)"
+            class="here" id="open-modal" expand="block">
+            Aquí</button>
+
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-modal #modal trigger="open-modal" [isOpen]="this.open">
+    <ng-template>
+      <ion-content force-overscroll="false">
+
+        <ng-container>
+
+          <p class="title">
+            <span [style.color]="'#'+ this.configModel.secundaryColor">
+              ¿PARA CUÁNDO ES TU PEDIDO?
+            </span>
+          </p>
+
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <div class="card" (click)="isProgramingSelected(false)"
+                  [style.background]="!isPrograming ? '#'+ this.configModel.secundaryColor : '#fff'">
+                  <img src="./assets/icon/favicon.png" class="logoVariant"
+                    [style.color]="isPrograming ? '#'+ this.configModel.primaryColor : '#fff'">
+                  <p class="title" [style.color]="'#'+ this.configModel.primaryColor">Recoger Ahora</p>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="card" (click)="isProgramingSelected(true)"
+                  [style.background]="isPrograming ? '#'+ this.configModel.secundaryColor : '#fff'">
+                  <img src="./assets/icon/favicon.png" class="logoVariant"
+                    [style.color]="isPrograming ? '#'+ this.configModel.primaryColor : '#fff'">
+                  <p class="title" [style.color]="'#'+ this.configModel.primaryColor">Programar</p>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <p class="title" *ngIf="isPrograming">
+            <span [style.color]="'#'+ this.configModel.primaryColor">
+              Puedes programar el dia y la hora en que quieras recoger tu orden
+            </span>
+          </p>
+
+          <button *ngIf="!isPrograming" class="go" [style.background-color]="'#'+ this.configModel.primaryColor"
+            (click)="generate()">
+            REVISAR ORDEN</button>
+          <button *ngIf="isPrograming" class="go" [style.background-color]="'#'+ this.configModel.primaryColor"
+            (click)="generate()">
+            PROGRAMAR PEDIDO</button>
+        </ng-container>
+
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

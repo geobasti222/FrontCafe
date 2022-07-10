@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductModel, VariantModel } from '../../models/productModel';
 import { ProductsService } from '../../services/products.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfigModel } from '../../models/configModel'
 import { AlertController } from '@ionic/angular';
 
@@ -23,7 +23,8 @@ export class ProductDetailPage implements OnInit {
   constructor(
     public productsService: ProductsService,
     private activatedRoute: ActivatedRoute,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private router: Router,
   ) { }
 
 
@@ -31,33 +32,38 @@ export class ProductDetailPage implements OnInit {
 
   ngOnInit() {
     let id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.configModel = JSON.parse(localStorage.getItem('config'));
-    this.product = this.productsService.getProductById(id);
-    this.product.variants[0].selectect = true;
-    this.product.quantity = this.cantidad;
-    this.firstName = this.product.name.substring(0, this.product.name.indexOf(' '));
-    this.secondName = this.product.name.substring(this.product.name.indexOf(' ') + 1);
+    this.configModel = JSON.parse(localStorage.getItem('config'));    
+    this.productsService.getProductById(id).then(product => {
+      
+      this.product = product;
+      this.product.category[0].selectect = true;
+      this.product.quantity = this.cantidad;
+      this.firstName = this.product.nombre.substring(0, this.product.nombre.indexOf(' ')).toUpperCase();
+      this.secondName = this.product.nombre.substring(this.product.nombre.indexOf(' ') + 1).toUpperCase();
 
 
-    let shoppingCart = localStorage.getItem('shoppingCart');
-    console.log(shoppingCart);
+      let shoppingCart = localStorage.getItem('shoppingCart');
 
-    if (shoppingCart != undefined) {
-      let productExist = JSON.parse(shoppingCart).find(x => x.id == this.product.id);
-      if (productExist != undefined) {
-        this.cantidad = productExist.quantity;
-        this.product.quantity = productExist.quantity;
-        this.product.variants.forEach(element => {
-          productExist.variants.forEach(item => {
-            if (item.id == element.id) {
-              element.selectect = true;
-            }
+      if (shoppingCart != undefined) {
+        let productExist = JSON.parse(shoppingCart).find(x => x.id == this.product.id);
+        if (productExist != undefined && productExist.category != undefined) {
+          this.cantidad = productExist.quantity;
+          this.product.quantity = productExist.quantity;
+          this.product.category.forEach(element => {
+            productExist.category.forEach(item => {
+              if (item.id == element.id) {
+                element.selectect = true;
+              }
+            });
           });
-        });
+        }
       }
-    }
-    this.shoppingCart();
+      this.shoppingCart();
+    });
   }
+
+
+  
 
   modifyQuantity(bool: boolean) {
     if (bool) {
@@ -70,8 +76,8 @@ export class ProductDetailPage implements OnInit {
   }
 
   selectedVariant(variant: VariantModel) {
-    if (!this.product.multiSelection) {
-      this.product.variants.forEach(element => {
+    if (!this.product.multipleSeleccion) {
+      this.product.category.forEach(element => {
         element.selectect = false;
       });
     }
@@ -81,7 +87,7 @@ export class ProductDetailPage implements OnInit {
 
   shoppingCart() {
     this.price = 0;
-    this.product.variants.forEach(element => {
+    this.product.category.forEach(element => {
       if (element.selectect) {
         this.price = this.price + element.price;
       }
@@ -89,30 +95,40 @@ export class ProductDetailPage implements OnInit {
     this.price = this.price * this.cantidad;
   }
 
-  addToCart() {
+  addToCart(addMore: boolean) {
+
     let product = new ProductModel();
     product.id = this.product.id;
-    product.name = this.product.name;
-    product.typesSelection = this.product.typesSelection;
+    product.nombre = this.product.nombre;
+    product.tipoSeleccion = this.product.tipoSeleccion;
     product.quantity = this.product.quantity;
-    product.variants = this.product.variants.filter(element => element.selectect);
-    if (product.variants == undefined || product.variants.length == 0 || this.cantidad == 0) {
+    product.price =  this.price;
+    product.imagenReferencia =  this.product.imagenReferencia;
+    product.category = this.product.category.filter(element => element.selectect);
+    if (product.category == undefined || product.category.length == 0 || this.cantidad == 0) {
       this.presentAlert();
       return;
     } else {
       let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
-      shoppingCart = shoppingCart.filter(element => element.id != product.id);
+      if (shoppingCart != undefined || shoppingCart != null) {
+        shoppingCart = shoppingCart.filter(element => element.id != product.id);
+      }else{
+        shoppingCart = [];
+      }
       shoppingCart.push(product);
-      console.log(shoppingCart);
-
       localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart))
     }
 
+    if (addMore) {
+      this.router.navigate(['/products']);
+    } else {
+      this.router.navigate(['/maps']);
+    }
 
   }
 
   async presentAlert() {
-    
+
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Alert',

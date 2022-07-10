@@ -1,14 +1,15 @@
 export class ProductModel{
     id: number;
-    imagen: string;
-    background: string;
-    name: string;
-    description: string;
-    typesSelection: string;
-    multiSelection: boolean;
+    imagenReferencia: string;
+    imagenFondo: string;
+    nombre: string;
+    descripcion: string;
+    tipoSeleccion: string;
+    multipleSeleccion: boolean;
     quantity?: number;
+    price?: number;
 
-    variants?: VariantModel[];
+    category?: VariantModel[];
 }
 
 export class VariantModel{
@@ -18,4 +19,5 @@ export class VariantModel{
     name: string;
     selectect : boolean;  
     price : number; 
+    time? : number;
 }
