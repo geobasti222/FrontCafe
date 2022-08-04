@@ -10,7 +10,7 @@ import { Marker } from '../models/markerModel';
 })
 export class ShopService {
 
-    protected url: string = 'https://localhost:44388';
+    protected url = 'https://localhost:44388';
 
     constructor(private http: HttpClient) { }
 
@@ -18,9 +18,7 @@ export class ShopService {
         return this.http.get<Marker[]>(this.url + '/SubShop/FindProduct/' + LatLong + '/' + environment.appCode + '/' + idProducts)
             .toPromise()
             .then(res => res)
-            .catch(err => {
-                return Promise.reject(err.json().error || 'Server error');
-            });
+            .catch(err => Promise.reject(err.error.json() || 'Server error'));
     }
 
 }

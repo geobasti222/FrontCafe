@@ -15,6 +15,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { INTERCEPTORS_PROVIDERS } from './interceptors/interceptors-providers';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -35,6 +36,7 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [Geolocation,
     Geolocation,
     NativeGeocoder,
+    INTERCEPTORS_PROVIDERS,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
