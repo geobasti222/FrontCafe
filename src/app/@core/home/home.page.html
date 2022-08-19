@@ -1,4 +1,4 @@
-<ion-content *ngIf="this.configModel  !=  undefined ; else elseBlock"
+<ion-content *ngIf="this.configModel  !==  undefined ; else elseBlock"
   [style.background-image]="'url(' +  this.configModel.background + ')'" [style.background-size]="'cover'"
   [style.background-repeat]="'no-repeat'">
   <img src="{{ this.configModel.logo}}" class="logo">

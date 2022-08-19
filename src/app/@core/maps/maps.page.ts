@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigModel } from '../models/configModel';
-import { ShopService } from '../services/shop.service';
+import { ConfigModel } from '../../models/configModel';
+import { ShopService } from '../../services/shop.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { Marker } from '../models/markerModel';
+import { Marker } from '../../models/markerModel';
 import { ActivatedRoute, Router } from '@angular/router';
 
-declare var google;
+declare let google;
 
 
 @Component({
@@ -19,12 +19,12 @@ export class MapsPage implements OnInit {
 
   markers: Marker[] = [];
   configModel: ConfigModel;
-  size: String = '40%';
+  size = '40%';
   latitude: any = 0; //latitude
   longitude: any = 0; //longitude
-  open: boolean = false;
-  isPrograming: boolean = false;
-  canDismiss: boolean = false;
+  open = false;
+  isPrograming = false;
+  canDismiss = false;
   constructor(
     private geolocation: Geolocation,
     private shopService: ShopService,
@@ -41,11 +41,11 @@ export class MapsPage implements OnInit {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.latitude = resp.coords.latitude;
       this.longitude = resp.coords.longitude;
-      let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
-      if (shoppingCart != undefined) {
-        let latLong = this.latitude + ',' + this.longitude;
-        let idProducts = shoppingCart.map(item => item.id).join(',');
-        this.shopService.getShops(latLong, idProducts).then(res => {          
+      const shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
+      if (shoppingCart !== undefined) {
+        const latLong = this.latitude + ',' + this.longitude;
+        const idProducts = shoppingCart.map(item => item.id).join(',');
+        this.shopService.getShops(latLong, idProducts).then(res => {
           this.markers = res.map(item => {
             return {
               position: {
@@ -80,7 +80,7 @@ export class MapsPage implements OnInit {
       disableDefaultUI: true,
     });
 
-    new google.maps.Marker({ 
+    new google.maps.Marker({
       position: myLatLng,
       map: this.map,
       title: 'Mi ubicación',
@@ -102,7 +102,7 @@ export class MapsPage implements OnInit {
       map: this.map,
       title: marker.name,
       icon: {
-        url: "assets/icon/favicon.png",
+        url: 'assets/icon/favicon.png',
         scaledSize: new google.maps.Size(30, 30)
       }
     });
@@ -119,19 +119,19 @@ export class MapsPage implements OnInit {
     // this.open = false;
     this.open = true;
   }
-  
-  isProgramingSelected(value : boolean){
+
+  isProgramingSelected(value: boolean){
     console.log(value);
-    
+
     this.isPrograming = value;
   }
 
   generate(){
     this.canDismiss = true;
-      
-    this.router.navigate(['/shopping-cart']);
+
+    this.router.navigate(['/home/shopping-cart']);
   }
 
-  
+
 
 }

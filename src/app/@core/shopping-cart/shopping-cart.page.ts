@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigModel } from '../models/configModel';
-import { Marker } from '../models/markerModel';
+import { ConfigModel } from '../../models/configModel';
+import { Marker } from '../../models/markerModel';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
-declare var google;
+declare let google;
 
 @Component({
   selector: 'app-shopping-cart',
@@ -14,7 +14,7 @@ export class ShoppingCartPage implements OnInit {
 
   shoppingCart: any[];
   configModel: ConfigModel;
-  total: number = 0;
+  total = 0;
   map = null;
 
   markers: Marker[] = [];
@@ -51,7 +51,7 @@ export class ShoppingCartPage implements OnInit {
       disableDefaultUI: true,
     });
 
-    new google.maps.Marker({ 
+    new google.maps.Marker({
       position: myLatLng,
       map: this.map,
       title: 'Mi ubicación',
