@@ -13,11 +13,11 @@ export class ProductModel{
 }
 
 export class VariantModel{
-    id : number;
+    id: number;
     productId: number;
     logo: string;
     name: string;
-    selectect : boolean;  
-    price : number; 
-    time? : number;
+    selectect: boolean;
+    price: number;
+    time?: number;
 }

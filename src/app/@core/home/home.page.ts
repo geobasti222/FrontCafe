@@ -1,32 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService, Message } from '../services/data.service';
+import { DataService, Message } from '../../services/data.service';
 import { Router } from '@angular/router';
 
-import { LogginService } from '../services/loggin.service'
+import { LogginService } from '../../services/loggin.service';
 
-import { ConfigModel } from '../models/configModel'
+import { ConfigModel } from '../../models/configModel';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-
-
-
-export class HomePage {
+export class HomePage implements OnInit {
+  configModel: ConfigModel;
   constructor(
     private data: DataService,
     private router: Router,
-    private logginService: LogginService) {
-  }
-
-  configModel: ConfigModel;
+    private logginService: LogginService
+  ) {}
 
   ngOnInit() {
     this.configModel = JSON.parse(localStorage.getItem('config'));
     if (this.configModel == null || this.configModel == undefined) {
-      this.logginService.getConfig().then(data => {
+      this.logginService.getConfig().then((data) => {
         this.configModel = data;
         localStorage.setItem('config', JSON.stringify(data));
       });
@@ -46,5 +42,4 @@ export class HomePage {
   products() {
     this.router.navigate(['/products']);
   }
-
 }

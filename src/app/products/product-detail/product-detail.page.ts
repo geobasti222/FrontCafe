@@ -32,9 +32,9 @@ export class ProductDetailPage implements OnInit {
 
   ngOnInit() {
     let id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.configModel = JSON.parse(localStorage.getItem('config'));    
+    this.configModel = JSON.parse(localStorage.getItem('config'));
     this.productsService.getProductById(id).then(product => {
-      
+
       this.product = product;
       this.product.category[0].selectect = true;
       this.product.quantity = this.cantidad;
@@ -63,7 +63,7 @@ export class ProductDetailPage implements OnInit {
   }
 
 
-  
+
 
   modifyQuantity(bool: boolean) {
     if (bool) {
@@ -97,7 +97,7 @@ export class ProductDetailPage implements OnInit {
 
   addToCart(addMore: boolean) {
 
-    let product = new ProductModel();
+    const product = new ProductModel();
     product.id = this.product.id;
     product.nombre = this.product.nombre;
     product.tipoSeleccion = this.product.tipoSeleccion;
@@ -105,24 +105,24 @@ export class ProductDetailPage implements OnInit {
     product.price =  this.price;
     product.imagenReferencia =  this.product.imagenReferencia;
     product.category = this.product.category.filter(element => element.selectect);
-    if (product.category == undefined || product.category.length == 0 || this.cantidad == 0) {
+    if (product.category === undefined || product.category.length === 0 || this.cantidad === 0) {
       this.presentAlert();
       return;
     } else {
       let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
-      if (shoppingCart != undefined || shoppingCart != null) {
-        shoppingCart = shoppingCart.filter(element => element.id != product.id);
+      if (shoppingCart !== undefined || shoppingCart != null) {
+        shoppingCart = shoppingCart.filter(element => element.id !== product.id);
       }else{
         shoppingCart = [];
       }
       shoppingCart.push(product);
-      localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart))
+      localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
     }
 
     if (addMore) {
       this.router.navigate(['/products']);
     } else {
-      this.router.navigate(['/maps']);
+      this.router.navigate(['/home/maps']);
     }
 
   }
