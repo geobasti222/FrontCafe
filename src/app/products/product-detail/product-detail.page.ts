@@ -110,7 +110,9 @@ export class ProductDetailPage implements OnInit {
       return;
     } else {
       let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
-      if (shoppingCart !== undefined || shoppingCart != null) {
+      console.log(shoppingCart);
+      
+      if (shoppingCart !== undefined && shoppingCart !== null) {
         shoppingCart = shoppingCart.filter(element => element.id !== product.id);
       }else{
         shoppingCart = [];
