@@ -4,6 +4,13 @@ import { ProductsService } from '../../services/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfigModel } from '../../models/configModel'
 import { AlertController } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+
+
+addIcons({
+  'ico-canasta': 'assets/icon/ico-canasta.svg',
+});
+
 
 @Component({
   selector: 'app-product-detail',
@@ -19,21 +26,24 @@ export class ProductDetailPage implements OnInit {
   splitted: string[];
   cantidad: number = 1;
   price: number = 0;
+  id: number = 0;
 
   constructor(
     public productsService: ProductsService,
     private activatedRoute: ActivatedRoute,
     public alertController: AlertController,
     private router: Router,
-  ) { }
+  ) {
+    this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.configModel = JSON.parse(localStorage.getItem('config'));
+   }
 
 
 
 
   ngOnInit() {
-    let id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.configModel = JSON.parse(localStorage.getItem('config'));
-    this.productsService.getProductById(id).then(product => {
+
+    this.productsService.getProductById(this.id).then(product => {
 
       this.product = product;
       this.product.category[0].selectect = true;
@@ -145,4 +155,7 @@ export class ProductDetailPage implements OnInit {
     await alert.present();
   }
 
+  back(){
+    this.router.navigate(['/products']);
+  }
 }

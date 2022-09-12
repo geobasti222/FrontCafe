@@ -1,13 +1,64 @@
-<ion-header no-border color="translucent">
-</ion-header>
+<!-- <ion-header no-border color="translucent">
+</ion-header> -->
 
 <ion-content fullscreen force-overscroll="false">
+
+  <ion-icon class="iconBack" name="arrow-back-outline" [style.color]="'#'+ this.configModel.primaryColor"
+    (click)="back()"></ion-icon>
+
   <ion-toolbar slot="fixed" color="translucent">
     <ion-searchbar color="light"></ion-searchbar>
   </ion-toolbar>
   <div #map id="map"></div>
+
+  <button class="go" id="open-modal-markers" expand="block"
+    [style.background-color]="'#'+ this.configModel.primaryColor" [style.font-family]="'Barlow_Condensed_Regular'"
+    [style.font-size]="'24px'">
+    VER MAS
+  </button>
+
+  <ion-modal #modal_markers trigger="open-modal-markers" class="popover-bottom" [initialBreakpoint]="0.4"
+    [breakpoints]="[0.4, 0.5, 0.75]">
+    <ng-template>
+      <ion-content>
+        <p class="title">
+          <span [style.color]="'#'+ this.configModel.secundaryColor">UBICA EL BARISTA </span>
+          <span [style.color]="'#'+ this.configModel.secundaryColor" [style.font-family]="'Barlow_Condensed_Black'">MÁS
+            CERCANO: </span>
+        </p>
+        <ion-list>
+          <ion-item *ngFor="let marks of markers">
+            <ion-avatar>
+              <img src="https://conecta.lineadirectaec.com/img/Material/pin.svg" />
+            </ion-avatar>
   
-  <ion-card class="popover-bottom" id="card" [style.height]="this.size">
+            <p>
+              <span class="text" [style.color]="'#'+ this.configModel.secundaryColor"
+                [style.font-family]="'Barlow_Condensed_Black'">{{ marks.name }}</span>
+              <br>
+              <span class="subTitle" [style.color]="'#'+ this.configModel.secundaryColor">a 12 millas de distancia</span>
+            </p>
+  
+            <div [style.background]="'#'+ this.configModel.secundaryColor" class="verticalLine"></div>
+  
+            <p style="margin-right:10px;">
+              <span class="subTitle" [style.color]="'#'+ this.configModel.secundaryColor">Listo en:</span>
+              <br>
+              <span class="subTitle" [style.color]="'#'+ this.configModel.secundaryColor"
+                [style.font-family]="'Barlow_Condensed_Black'">12
+                mins.</span>
+            </p>
+            <button [style.background-color]="'#'+ this.configModel.secundaryColor" (click)="selectedMarker(marks)"
+              class="here" id="open-modal" expand="block">
+              Aquí</button>
+  
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+
+  </ion-modal>
+  <!-- <ion-card class="popover-bottom" id="card" [style.height]="this.size">
     <ion-card-header>
       <button class="bottom-popover" (click)="changeSize()"></button>
       <p class="title">
@@ -20,7 +71,7 @@
       <ion-list>
         <ion-item *ngFor="let marks of markers">
           <ion-avatar>
-            <img src="./assets/icon/favicon.png" />
+            <img src="https://conecta.lineadirectaec.com/img/Material/pin.svg" />
           </ion-avatar>
 
           <p>
@@ -46,10 +97,11 @@
         </ion-item>
       </ion-list>
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->
 
 
-  <ion-modal #modal trigger="open-modal" [isOpen]="this.open">
+  <ion-modal #modal class="ion-modal" trigger="open-modal" [isOpen]="this.open" 
+  [style.--height]="!isPrograming? '35%' : '60%'">
     <ng-template>
       <ion-content force-overscroll="false">
 
@@ -65,18 +117,26 @@
             <ion-row>
               <ion-col>
                 <div class="card" (click)="isProgramingSelected(false)"
-                  [style.background]="!isPrograming ? '#'+ this.configModel.secundaryColor : '#fff'">
-                  <img src="./assets/icon/favicon.png" class="logoVariant"
+                [style.border-color]="!isPrograming? '#'+ this.configModel.primaryColor : '#000'"
+                [style.background]="!isPrograming ? ' hsla(29, 39%, 29%, 0.161) ' : '#fff'"
+                [style.opacity]="!isPrograming ? '1' : '0.5'">
+                  <img  *ngIf="!isPrograming" src="https://conecta.lineadirectaec.com/img/Material/ico-cafe.svg" class="logoVariant"
                     [style.color]="isPrograming ? '#'+ this.configModel.primaryColor : '#fff'">
-                  <p class="title" [style.color]="'#'+ this.configModel.primaryColor">Recoger Ahora</p>
+                    <img  *ngIf="isPrograming" src="https://conecta.lineadirectaec.com/img/Material/ico-cafe2.svg" class="logoVariant"
+                    [style.color]="isPrograming ? '#'+ this.configModel.primaryColor : '#fff'">
+                  <p class="title" [style.color]="'#'+ this.configModel.primaryColor">RECOGER AHORA</p>
                 </div>
               </ion-col>
               <ion-col>
                 <div class="card" (click)="isProgramingSelected(true)"
-                  [style.background]="isPrograming ? '#'+ this.configModel.secundaryColor : '#fff'">
+                [style.border-color]="isPrograming? '#'+ this.configModel.primaryColor : '#000'"
+                [style.background]="isPrograming ? ' hsla(29, 39%, 29%, 0.161) ' : '#fff'"
+                [style.opacity]="isPrograming ? '1' : '0.5'">
+                <!-- <img src="./assets/icon/favicon.png" class="logoVariant"
+                [style.color]="isPrograming ? '#'+ this.configModel.primaryColor : '#fff'"> -->
                   <img src="./assets/icon/favicon.png" class="logoVariant"
                     [style.color]="isPrograming ? '#'+ this.configModel.primaryColor : '#fff'">
-                  <p class="title" [style.color]="'#'+ this.configModel.primaryColor">Programar</p>
+                  <p class="title" [style.color]="'#'+ this.configModel.primaryColor">PROGRAMAR</p>
                 </div>
               </ion-col>
             </ion-row>
@@ -88,10 +148,10 @@
             </span>
           </p>
 
-          <button *ngIf="!isPrograming" class="go" [style.background-color]="'#'+ this.configModel.primaryColor"
+          <button *ngIf="!isPrograming" class="buttonOrder" [style.background-color]="'#'+ this.configModel.primaryColor"
             (click)="generate()">
             REVISAR ORDEN</button>
-          <button *ngIf="isPrograming" class="go" [style.background-color]="'#'+ this.configModel.primaryColor"
+          <button *ngIf="isPrograming" class="buttonProgrammingOrder" [style.background-color]="'#'+ this.configModel.primaryColor"
             (click)="generate()">
             PROGRAMAR PEDIDO</button>
         </ng-container>

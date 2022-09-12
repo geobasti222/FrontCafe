@@ -10,7 +10,7 @@ import { Marker } from '../models/markerModel';
 })
 export class ShopService {
 
-    protected url = 'https://localhost:44388';
+    protected url = 'https://localhost:5001';
 
     constructor(private http: HttpClient) { }
 

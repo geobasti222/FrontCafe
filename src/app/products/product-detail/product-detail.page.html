@@ -1,10 +1,8 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>product-detail</ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content *ngIf="this.product != undefined ; else elseBlock">
+
+  <ion-icon class="iconBack" name="arrow-back-outline" [style.color]="'#'+ this.configModel.primaryColor"
+    (click)="back()"></ion-icon>
+
   <img src="{{product.imagenReferencia}}" class="logo">
 
   <p class="title">
@@ -13,41 +11,51 @@
       [style.font-family]="'Barlow_Condensed_Black'">{{secondName}}</span>
   </p>
 
-  <p class="description" [style.color]="'#'+ this.configModel.primaryColor">{{product.descripcion}}</p>
-  <p class="subTitle" [style.color]="'#'+ this.configModel.primaryColor">{{product.tipoSeleccion}}</p>
+  <p class="description" [style.color]="'#'+ this.configModel.primaryColor"
+  [style.font-family]="'Raleway_Variable'">{{product.descripcion}}</p>
+  <p class="subTitle" [style.color]="'#'+ this.configModel.primaryColor">{{product.tipoSeleccion | uppercase }}</p>
 
   <ion-grid>
     <ion-row>
       <ion-col *ngFor="let post of product.category">
         <div class="card" (click)="selectedVariant(post)"
-          [style.background]="post.selectect ? '#'+ this.configModel.secundaryColor : '#fff'">
+          [style.border-color]="post.selectect ? '#'+ this.configModel.primaryColor : '#000'"
+          [style.background]="post.selectect ? ' hsla(29, 39%, 29%, 0.161) ' : '#fff'"
+          [style.opacity]="post.selectect ? '1' : '0.5'"
+          >
           <img src="{{post.image}}" class="logoVariant"
             [style.color]="post.selectect ? '#'+ this.configModel.primaryColor : '#fff'">
-          <p [style.color]="'#'+ this.configModel.primaryColor">{{post.name}}</p>
+          <p 
+          [style.color]="post.selectect ? '#'+ this.configModel.secundaryColor : '#000'"
+          [style.opacity]="post.selectect ? '1' : '0.7'">{{post.name}}</p>
         </div>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <p class="subTitle" [style.color]="'#'+ this.configModel.primaryColor">Cantidad</p>
+  <p class="subTitle" [style.color]="'#'+ this.configModel.primaryColor">CANTIDAD</p>
 
   <div class="controller">
-    <ion-icon name="remove-circle-outline" (click)=modifyQuantity(false)
-      [style.color]="'#'+ this.configModel.primaryColor"></ion-icon>
-    <span class="controller" *ngIf="cantidad >= 1"
-      [style.color]="'#'+ this.configModel.primaryColor">{{cantidad}}</span>
+    <ion-icon class="iconController" name="remove-circle" (click)=modifyQuantity(false) [style.color]="'#'+ this.configModel.primaryColor">
+    </ion-icon>
+
+    <span class="controller" *ngIf="cantidad >= 1" 
+      [style.color]="'#'+ this.configModel.secundaryColor">{{cantidad}}</span>
+
     <ion-icon class="controller" name="trash-outline" *ngIf="cantidad == 0"
       [style.color]="'#'+ this.configModel.primaryColor">
     </ion-icon>
-    <ion-icon name="add-circle-outline" (click)=modifyQuantity(true) [style.color]="'#'+ this.configModel.primaryColor">
+
+    <ion-icon class="iconController" name="add-circle" (click)=modifyQuantity(true) [style.color]="'#'+ this.configModel.primaryColor">
     </ion-icon>
   </div>
 
-  <button style="background-color: white;" (click)="modifyQuantity(true)">
-    <ion-icon name='add-circle-outline'></ion-icon>
-  </button>
+  <!-- <button style="background-color: white;" (click)="modifyQuantity(true)">
+    <ion-icon name="add-circle"></ion-icon>
+  </button> -->
 
-  <button class="add" [style.background-color]="'#'+ this.configModel.secundaryColor" (click)="addToCart(true)">
+  <button class="add" [style.background-color]="'#'+ this.configModel.secundaryColor" (click)="addToCart(true)"
+  [style.font-family]="'Barlow_Condensed_Medium'" >
     <ion-icon name="bag-handle-outline"></ion-icon>
     AGREGAR, QUIERO OTRO {{firstName}}
   </button>
@@ -66,8 +74,16 @@
 <ng-template #elseBlock>
   <ion-content style="background: rgb(165, 165, 165);">
     <ngx-skeleton-loader count="1" appearance="circle" animation="progress-dark"
-      [theme]="{ height : '45%' , width  : '98%' }"></ngx-skeleton-loader>
-    <ngx-skeleton-loader count="1" appearance="line" animation="progress-dark" [theme]="{ height : '460px'}" class="go">
+      [theme]="{ height : '45%' , width  : '98%' }">
+    </ngx-skeleton-loader>
+
+    <!-- <ngx-skeleton-loader count="1" appearance="line" animation="progress-dark" [theme]="{ height : '160px'}">
+    </ngx-skeleton-loader> -->
+
+    <ngx-skeleton-loader count="1" appearance="line" animation="progress-dark" [theme]="{ height : '60px'}" class="add">
+    </ngx-skeleton-loader>
+
+    <ngx-skeleton-loader count="1" appearance="line" animation="progress-dark" [theme]="{ height : '60px'}" class="go">
     </ngx-skeleton-loader>
   </ion-content>
 </ng-template>

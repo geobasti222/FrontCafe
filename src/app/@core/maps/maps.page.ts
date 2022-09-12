@@ -4,6 +4,7 @@ import { ShopService } from '../../services/shop.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Marker } from '../../models/markerModel';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IonLoaderService } from 'src/app/services/ion-loader.service';
 
 declare let google;
 
@@ -29,15 +30,20 @@ export class MapsPage implements OnInit {
     private geolocation: Geolocation,
     private shopService: ShopService,
     private router: Router,
+    private loaderService : IonLoaderService
 
-  ) { }
-
-  ngOnInit() {
+  ) { 
     this.configModel = JSON.parse(localStorage.getItem('config'));
-    this.getCurrentCoordinates();
   }
 
-  getCurrentCoordinates() {
+  ngOnInit() {
+    this.loaderService.simpleLoader();
+    this.getCurrentCoordinates().then( x => {
+      this.loaderService.dismissLoader();
+    });
+  }
+
+  async getCurrentCoordinates() {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.latitude = resp.coords.latitude;
       this.longitude = resp.coords.longitude;
@@ -55,10 +61,14 @@ export class MapsPage implements OnInit {
               id : item.id
             }
           });
+          // console.log(this.markers);
+          
           // for (let index = 0; index < 10; index++) {
           //   this.markers.push(this.markers[0]);
           // }
-          this.loadMap();
+          this.loadMap().then( x => {
+            this.loaderService.dismissLoader();
+          });
         });
       }
     }).catch((error) => {
@@ -70,13 +80,13 @@ export class MapsPage implements OnInit {
     this.size = this.size === '40%' ? '70%' : '40%';
   }
 
-  loadMap() {
+  async loadMap() {
     const mapEle: HTMLElement = document.getElementById('map');
     const myLatLng = { lat: parseFloat(this.latitude), lng: parseFloat(this.longitude) };
 
     this.map = new google.maps.Map(mapEle, {
       center: myLatLng,
-      zoom: 15,
+      zoom: 17,
       disableDefaultUI: true,
     });
 
@@ -85,7 +95,8 @@ export class MapsPage implements OnInit {
       map: this.map,
       title: 'Mi ubicación',
       icon: {
-        url: 'http://190.63.18.91/Person_icon.png',
+        url: 'https://conecta.lineadirectaec.com/img/Material/ico-aquiestas.svg',
+        // url: 'http://190.63.18.91/Person_icon.png',
         scaledSize: new google.maps.Size(50, 50)
       }
     });
@@ -102,7 +113,7 @@ export class MapsPage implements OnInit {
       map: this.map,
       title: marker.name,
       icon: {
-        url: 'assets/icon/favicon.png',
+        url: 'https://conecta.lineadirectaec.com/img/Material/pin.svg',
         scaledSize: new google.maps.Size(30, 30)
       }
     });
@@ -128,8 +139,11 @@ export class MapsPage implements OnInit {
 
   generate(){
     this.canDismiss = true;
-
     this.router.navigate(['/home/shopping-cart']);
+  }
+
+  back(){
+    this.router.navigate(['/products']);
   }
 
 

@@ -39,10 +39,34 @@
     font-family: 'Barlow_Condensed_Regular'; //This is what we are going to call  
     src: url('./assets/fonts/Barlow_Condensed/BarlowCondensed-Regular.ttf');
 }
+@font-face {
+    font-family: 'Barlow_Condensed_Medium'; //This is what we are going to call  
+    src: url('./assets/fonts/Barlow_Condensed/BarlowCondensed-Medium.ttf');
+}
+@font-face {
+    font-family: 'Barlow_SemiBold'; //This is what we are going to call  
+    src: url('./assets/fonts/Barlow_Condensed/BarlowCondensed-SemiBold.ttf');
+}
 
+@font-face {
+    font-family: 'Barlow_Condensed_Bold'; //This is what we are going to call  
+    src: url('./assets/fonts/Barlow_Condensed/BarlowCondensed-Bold.ttf');
+}
+
+//Raleway fonts
 @font-face {
     font-family: 'Raleway_Variable'; //This is what we are going to call  
     src: url('./assets/fonts/Raleway/Raleway-VariableFont_wght.ttf');
+}
+
+@font-face {
+    font-family: 'Raleway_Medium'; //This is what we are going to call  
+    src: url('./assets/fonts/Raleway/Raleway-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Raleway_ExtraBold'; //This is what we are going to call  
+    src: url('./assets/fonts/Raleway/Raleway-ExtraBold.ttf');
 }
 
 
