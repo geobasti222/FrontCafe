@@ -20,7 +20,7 @@ const routes: Routes = [
     component:ShoppingCartPage
   },
   {
-    path: 'order/{id}',
+    path: 'order/:id',
     component:OrderPage
   }
 ];

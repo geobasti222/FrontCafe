@@ -83,7 +83,7 @@ export class ShoppingCartPage implements OnInit {
   }
 
   saveOrder(){
-    this.buy.buyDetail = new Array<BuyDetailModel>;
+    this.buy.buyDetail = [];
     this.shoppingCart.forEach(element => {
         let item =  new BuyDetailModel();
         item.categoryProductId = element.categoryProductId;
@@ -94,6 +94,7 @@ export class ShoppingCartPage implements OnInit {
     this.shopService.saveOrder(this.buy).then(data => {
         localStorage.setItem('order', JSON.stringify(data));
         this.router.navigate(['/home/order/' + data.id]);
+        
     })
     
   }

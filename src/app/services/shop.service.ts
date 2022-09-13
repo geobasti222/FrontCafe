@@ -24,7 +24,7 @@ export class ShopService {
     }
 
     public saveOrder(buy : BuyModel): Promise<Order> {
-        return this.http.post<Order>(this.url + '/SubShop/SaveOrder',buy)
+        return this.http.post<Order>(this.url + '/Admin/SaveOrder',buy)
         .toPromise()
         .then(res => res)
         .catch(err => Promise.reject(err.error.json() || 'Server error'));

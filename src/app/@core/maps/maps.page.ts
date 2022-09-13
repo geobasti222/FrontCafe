@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfigModel } from '../../models/configModel';
 import { ShopService } from '../../services/shop.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -6,6 +6,7 @@ import { Marker } from '../../models/markerModel';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonLoaderService } from 'src/app/services/ion-loader.service';
 import { BuyModel } from 'src/app/models/buyModel';
+import { IonModal, ModalController } from '@ionic/angular';
 
 declare let google;
 
@@ -28,12 +29,15 @@ export class MapsPage implements OnInit {
   isPrograming = false;
   canDismiss = false;
   subShopSelected: Marker;
+
+  @ViewChild(IonModal) modal: IonModal;
+
   constructor(
     private geolocation: Geolocation,
     private shopService: ShopService,
     private router: Router,
-    private loaderService: IonLoaderService
-
+    private loaderService: IonLoaderService,
+    private modalCtrl: ModalController
   ) {
     this.configModel = JSON.parse(localStorage.getItem('config'));
   }
@@ -146,7 +150,7 @@ export class MapsPage implements OnInit {
     this.canDismiss = true;
 
     let buy = new BuyModel();
-    buy.userId = 1;
+    //buy.userId = 1;
     buy.subShopId = this.subShopSelected.id;
     buy.address = this.subShopSelected.address;
 
@@ -154,7 +158,11 @@ export class MapsPage implements OnInit {
       localStorage.removeItem('buy');
     }
     localStorage.setItem('buy', JSON.stringify(buy));
+    this.modal.dismiss('modal_markers', 'cancel');
+    this.modal.dismiss('modal', 'cancel');
+    this.modalCtrl.dismiss();
 
+    this.open = false;
     this.router.navigate(['/home/shopping-cart']);
   }
 

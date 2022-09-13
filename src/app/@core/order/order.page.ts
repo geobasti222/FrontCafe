@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Order } from 'src/app/models/orderModel';
 
 @Component({
   selector: 'app-order',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order.page.scss'],
 })
 export class OrderPage implements OnInit {
+  order : Order;
+  constructor() { 
+    this.order = JSON.parse(localStorage.getItem('order'));
 
-  constructor() { }
+  }
 
   ngOnInit() {
   }

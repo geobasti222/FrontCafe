@@ -110,10 +110,10 @@
           </p>
 
           <button *ngIf="!isPrograming" class="buttonOrder" [style.background-color]="'#'+ this.configModel.primaryColor"
-            (click)="generate()">
+            (click)="generate()" data-dismiss="modal">
             REVISAR ORDEN</button>
           <button *ngIf="isPrograming" class="buttonProgrammingOrder" [style.background-color]="'#'+ this.configModel.primaryColor"
-            (click)="generate()">
+            (click)="generate()" data-dismiss="ion-modal">
             PROGRAMAR PEDIDO</button>
         </ng-container>
 
