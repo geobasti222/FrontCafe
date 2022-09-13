@@ -17,9 +17,7 @@ export class HomePage implements OnInit {
     private data: DataService,
     private router: Router,
     private logginService: LogginService
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.configModel = JSON.parse(localStorage.getItem('config'));
     if (this.configModel == null || this.configModel == undefined) {
       this.logginService.getConfig().then((data) => {
@@ -27,6 +25,10 @@ export class HomePage implements OnInit {
         localStorage.setItem('config', JSON.stringify(data));
       });
     }
+  }
+
+  ngOnInit() {
+
   }
 
   refresh(ev) {

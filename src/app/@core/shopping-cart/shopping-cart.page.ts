@@ -83,16 +83,19 @@ export class ShoppingCartPage implements OnInit {
   }
 
   saveOrder(){
+    this.loaderService.simpleLoader();
     this.buy.buyDetail = [];
     this.shoppingCart.forEach(element => {
         let item =  new BuyDetailModel();
         item.categoryProductId = element.categoryProductId;
         item.unitPrice = element.unitPrice;
         item.quantity = element.quantity;
+        this.buy.buyDetail.push(item);
     });
 
     this.shopService.saveOrder(this.buy).then(data => {
         localStorage.setItem('order', JSON.stringify(data));
+        this.loaderService.dismissLoader();
         this.router.navigate(['/home/order/' + data.id]);
         
     })
