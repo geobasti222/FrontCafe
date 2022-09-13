@@ -56,7 +56,7 @@ export class ShoppingCartPage implements OnInit {
       map: this.map,
       title: 'Mi ubicación',
       icon: {
-        url: 'http://190.63.18.91/Person_icon.png',
+        url: 'https://conecta.lineadirectaec.com/img/Person_icon.png',
         scaledSize: new google.maps.Size(50, 50)
       }
     });

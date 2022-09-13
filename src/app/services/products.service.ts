@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ProductsService {
 
-    protected url: string = 'https://localhost:44388';
+  protected url: string = environment.url;
 
     constructor(private http: HttpClient) { }
 

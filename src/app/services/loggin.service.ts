@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LogginService {
 
-    protected url = 'https://localhost:44388';
+  protected url: string = environment.url;
 
     constructor(private http: HttpClient) { }
 

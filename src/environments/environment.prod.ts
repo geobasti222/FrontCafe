@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  appCode : 1,
+  url: 'https://apiservices.lineadirectaec.com/ApiBarista'
 };

@@ -3,9 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  
+
   production: false,
-  appCode : 1
+  appCode : 1,
+  url: 'https://apiservices.lineadirectaec.com/ApiBarista'
 
 
 };
