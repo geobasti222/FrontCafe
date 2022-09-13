@@ -4,5 +4,6 @@ export class Marker{
         lng: number;
       };
       name: string;
+      address: string;
       id: number;
 }

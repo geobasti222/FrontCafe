@@ -102,8 +102,12 @@ export class MapsPage implements OnInit {
       map: this.map,
       title: 'Mi ubicación',
       icon: {
+<<<<<<< HEAD
+        url: 'https://conecta.lineadirectaec.com/img/Person_icon.png',
+=======
         url: 'https://conecta.lineadirectaec.com/img/Material/ico-aquiestas.svg',
         // url: 'http://190.63.18.91/Person_icon.png',
+>>>>>>> 70abe28d3749eb2c38a64159961b85aa03ac7b37
         scaledSize: new google.maps.Size(50, 50)
       }
     });

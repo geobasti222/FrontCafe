@@ -1,8 +1,10 @@
 ion-content {
-    --background: #fff;
+    //--background: #fff;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
+    --ion-background-color: #f7f7f7 !important;
+
 }
 
 ion-title,
@@ -33,13 +35,13 @@ ion-text,
 }
 
 .logo {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     display: block;
     margin: auto;
 }
 
-.logoVariant{
+.logoVariant {
     width: 35px;
     height: 35px;
     display: block;
@@ -48,7 +50,7 @@ ion-text,
 }
 
 .add {
-    width: 80%;
+    width: 90%;
     border-radius: 50px;
     height: 6%;
     margin-left: 5%;
@@ -60,7 +62,7 @@ ion-text,
 }
 
 .go {
-    width: 55%;
+    width: 60%;
     margin-left: 35%;
 }
 
@@ -81,54 +83,106 @@ ion-text,
 }
 
 .cardSelected {
-    background: #684a2e;
     border-radius: 15%;
-    //display: inline-block;
     height: 85px;
     width: 85px;
-    border: 1px solid #703702;
+    border: 1px solid;
     padding-top: 6%;
     padding-bottom: 6%;
-    // margin: 1rem;
     position: relative;
     font-size: 12px;
-    font-family: Barlow_Condensed_Black;}
+    font-family: Barlow_Condensed_Black;
+}
 
 
 .card {
-    //background: #703702;
     border-radius: 15%;
-    //display: inline-block;
     height: 85px;
     width: 85px;
-    border: 1px solid #979797;
-    color:  #979797;
+    border: 1px solid;
+    color: #979797;
     padding-top: 6%;
     padding-bottom: 6%;
-    // margin: 1rem;
     position: relative;
     font-size: 12px;
     font-family: Barlow_Condensed_Black;
 
 }
-ion-col{
+
+ion-col {
     text-align: center;
     align-items: center;
     vertical-align: middle;
 }
-// .card-1 {
-//     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-//     transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
-// }
-
-// .card-1:hover {
-//     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-// }
 
 ion-scroll[scrollX] {
     white-space: nowrap;
 
     .scroll-item {
         display: inline-block;
+    }
+}
+
+
+.iconBack {
+    height: 30px;
+    width: 30px;
+    margin-top: 10px;
+    margin-left: 10px;
+
+}
+
+.iconController{
+    font-size: 30px;
+}
+
+
+@media (max-width: 375px) {
+    .logo {
+        width: 100px;
+        height: 100px;
+        display: block;
+        margin: auto;
+    }
+
+
+    .cardSelected {
+        background: #684a2e;
+        border-radius: 15%;
+        //display: inline-block;
+        height: 60px;
+        width: 60px;
+        border: 1px solid;
+        padding-top: 6%;
+        padding-bottom: 6%;
+        // margin: 1rem;
+        position: relative;
+        font-size: 10px;
+        font-family: Barlow_Condensed_Black;
+    }
+
+
+    .card {
+        //background: #703702;
+        border-radius: 15%;
+        //display: inline-block;
+        height: 60px;
+        width: 60px;
+        border: 1px solid;
+        padding-top: 6%;
+        padding-bottom: 6%;
+        // margin: 1rem;
+        position: relative;
+        font-size: 10px;
+        font-family: Barlow_Condensed_Black;
+
+    }
+
+    .logoVariant {
+        width: 25px;
+        height: 25px;
+        display: block;
+        margin: auto;
+        color: #979797;
     }
 }

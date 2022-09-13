@@ -14,8 +14,8 @@ ion-content {
 .logo {
   // display: block;
   // margin: auto;
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   // max-height: 50%;
   // max-width: 80%;
   // margin: 60px 0 40px;
@@ -34,12 +34,14 @@ ion-slides {
 .skeletonText {
   margin-left: 20%;
 }
+
 .skeletonGo {
   position: relative;
   bottom: -55%;
   margin-left: 15%;
 }
-.skeletonLogo{
+
+.skeletonLogo {
   margin-left: 30%;
 }
 
@@ -57,10 +59,31 @@ ion-slides {
 
 ion-slides {
   --bullet-background-active: white;
+  --bullet-background-inactive: rgb(0, 0, 0);
+  --bullet-background: rgb(0, 255, 76) !important;
 }
 
+:host ::ng-deep .swiper-pagination {
+  @media (max-width: 375px) {
+    bottom: 60%;
+  }
+  bottom: 70%;
 
-h1,
-h5 {
-  text-shadow: 0px 0px 20px #000000;
+  .swiper-pagination-bullet {
+    --bullet-background: #000000;
+    width: 20px;
+    height: 20px;
+  }
+
+  .swiper-pagination-bullet-active {
+    width: 20px;
+    height: 20px;
+  }
+
+
+  h1,
+  h5 {
+    text-shadow: 0px 0px 20px #000000;
+  }
+
 }

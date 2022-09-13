@@ -1,4 +1,4 @@
-<ion-content *ngIf="this.configModel  !==  undefined ; else elseBlock"
+<ion-content *ngIf="this.configModel  !==  undefined ; else elseBlock"  fullscreen force-overscroll="false"
   [style.background-image]="'url(' +  this.configModel.background + ')'" [style.background-size]="'cover'"
   [style.background-repeat]="'no-repeat'">
   <img src="{{ this.configModel.logo}}" class="logo">
@@ -8,8 +8,9 @@
 
 
 
-  <button class="go" (click)="products()" [style.background-color]="'#'+ this.configModel.primaryColor">
-    EMPEZAR
+  <button class="go" (click)="products()" [style.background-color]="'#'+ this.configModel.primaryColor"
+    [style.font-family]="'Barlow_Condensed_Regular'" [style.font-size]="'24px'">
+    {{ 'HOME.start' | translate }}
   </button>
 
 </ion-content>

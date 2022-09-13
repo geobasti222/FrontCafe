@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { ConfigModel } from '../models/configModel';
+import { HttpClient } from '@angular/common/http';
+
+
+@Injectable({
+    providedIn: 'root'
+})
+export class LogginService {
+
+<<<<<<< HEAD
+  protected url: string = environment.url;
+=======
+    protected url = 'https://localhost:5001';
+>>>>>>> 70abe28d3749eb2c38a64159961b85aa03ac7b37
+
+    constructor(private http: HttpClient) { }
+
+    getConfig(): Promise<any> {
+        return this.http.get<any>(this.url + '/Admin/FindConfigurationShop/' + environment.appCode)
+            .toPromise()
+            .then(res => res)
+            .catch(err => Promise.reject(err.error.json() || 'Server error'));
+    }
+
+}
