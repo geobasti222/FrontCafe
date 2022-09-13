@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { ProductModel, VariantModel } from '../models/productModel';
 import { environment } from 'src/environments/environment';
 import { Marker } from '../models/markerModel';
+import { BuyModel } from '../models/buyModel';
+import { Order } from '../models/orderModel';
 
 
 @Injectable({
@@ -20,5 +22,13 @@ export class ShopService {
             .then(res => res)
             .catch(err => Promise.reject(err.error.json() || 'Server error'));
     }
+
+    public saveOrder(buy : BuyModel): Promise<Order> {
+        return this.http.post<Order>(this.url + '/SubShop/SaveOrder',buy)
+        .toPromise()
+        .then(res => res)
+        .catch(err => Promise.reject(err.error.json() || 'Server error'));
+    }
+
 
 }

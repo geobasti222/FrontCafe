@@ -10,9 +10,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BrowserModule } from '@angular/platform-browser'
 import { MapsPage } from './maps/maps.page';
 import { ShoppingCartPage } from './shopping-cart/shopping-cart.page';
+import { OrderPage } from './order/order.page';
 
 @NgModule({
-  declarations: [HomePage,MapsPage,ShoppingCartPage],
+  declarations: [HomePage,MapsPage,ShoppingCartPage,OrderPage],
   imports: [
     CoreRoutingModule,
     NgxSkeletonLoaderModule,

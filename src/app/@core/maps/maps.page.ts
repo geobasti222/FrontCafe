@@ -5,6 +5,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Marker } from '../../models/markerModel';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonLoaderService } from 'src/app/services/ion-loader.service';
+import { BuyModel } from 'src/app/models/buyModel';
 
 declare let google;
 
@@ -26,19 +27,20 @@ export class MapsPage implements OnInit {
   open = false;
   isPrograming = false;
   canDismiss = false;
+  subShopSelected: Marker;
   constructor(
     private geolocation: Geolocation,
     private shopService: ShopService,
     private router: Router,
-    private loaderService : IonLoaderService
+    private loaderService: IonLoaderService
 
-  ) { 
+  ) {
     this.configModel = JSON.parse(localStorage.getItem('config'));
   }
 
   ngOnInit() {
     this.loaderService.simpleLoader();
-    this.getCurrentCoordinates().then( x => {
+    this.getCurrentCoordinates().then(x => {
       this.loaderService.dismissLoader();
     });
   }
@@ -58,15 +60,16 @@ export class MapsPage implements OnInit {
                 lat: parseFloat(item.position.lat.toString()),
                 lng: parseFloat(item.position.lng.toString())
               }, name: item.name,
-              id : item.id
+              id: item.id,
+              address: item.address
             }
           });
           // console.log(this.markers);
-          
+
           // for (let index = 0; index < 10; index++) {
           //   this.markers.push(this.markers[0]);
           // }
-          this.loadMap().then( x => {
+          this.loadMap().then(x => {
             this.loaderService.dismissLoader();
           });
         });
@@ -112,6 +115,8 @@ export class MapsPage implements OnInit {
       position: marker.position,
       map: this.map,
       title: marker.name,
+      id: marker.id,
+      address: marker.address,
       icon: {
         url: 'https://conecta.lineadirectaec.com/img/Material/pin.svg',
         scaledSize: new google.maps.Size(30, 30)
@@ -126,23 +131,34 @@ export class MapsPage implements OnInit {
   }
 
   selectedMarker(marker: Marker) {
-    console.log(marker,this.open);
+    console.log(marker, this.open);
+    this.subShopSelected = marker;
     // this.open = false;
     this.open = true;
   }
 
-  isProgramingSelected(value: boolean){
+  isProgramingSelected(value: boolean) {
     console.log(value);
-
     this.isPrograming = value;
   }
 
-  generate(){
+  generate() {
     this.canDismiss = true;
+
+    let buy = new BuyModel();
+    buy.userId = 1;
+    buy.subShopId = this.subShopSelected.id;
+    buy.address = this.subShopSelected.address;
+
+    if(localStorage.getItem('buy') !== null || localStorage.getItem('buy') !== undefined) {
+      localStorage.removeItem('buy');
+    }
+    localStorage.setItem('buy', JSON.stringify(buy));
+
     this.router.navigate(['/home/shopping-cart']);
   }
 
-  back(){
+  back() {
     this.router.navigate(['/products']);
   }
 
