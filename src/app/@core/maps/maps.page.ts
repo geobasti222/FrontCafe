@@ -68,7 +68,7 @@ export class MapsPage implements OnInit {
               address: item.address
             }
           });
-          // console.log(this.markers);
+          console.log(this.markers);
 
           // for (let index = 0; index < 10; index++) {
           //   this.markers.push(this.markers[0]);
