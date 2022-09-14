@@ -2,76 +2,112 @@
 
   <p class="title">
     <span class="text" [style.color]="'#'+ this.configModel.secundaryColor"
-      [style.font-family]="'Barlow_Condensed_Black'">REVISAR ORDEN</span>
+      [style.font-family]="'Barlow_Condensed_Black'">
+      <ng-container *ngIf="buy !==  null || shoppingCart !== null">
+        REVISAR ORDEN
+      </ng-container>
+      <ng-container *ngIf="this.order !== undefined && (shoppingCart ===  undefined || shoppingCart === null)">
+        TU ORDEN ESTARA LISTA EN:
+      </ng-container>
+    </span>
   </p>
 
-  <div #map id="map"></div>
+  <div #map id="map" [style.height]="buy !==  null && shoppingCart !== null ? '20%' : '35%'"></div>
 
-  <ion-card  class="popover">
+  <ion-card class="popover">
     <ion-card-content style="overflow:scroll">
+      <ng-container *ngIf="this.order !== undefined && (shoppingCart ===  undefined || shoppingCart === null)">
+        <p class="title">
+          <span class="timmer" [style.color]="'#'+ this.configModel.primaryColor"
+            [style.font-family]="'Barlow_Condensed_Black'" [style.font-size]="'40px'">
+            {{hours}}:{{ minutes}}:{{ seconds}}
+          </span>
+        </p>
+      </ng-container>
     </ion-card-content>
   </ion-card>
 
-  <ion-content style="height: 30%">
-    <ion-list>
-      <ion-grid>
-        <ion-item *ngFor="let item of shoppingCart">
-          <ion-row style="width: 100%;">
-            <ion-col style="max-width: 10%;">
-              <ion-avatar>
-                <img src="{{item.imagenReferencia}}" />
-              </ion-avatar>
-            </ion-col>
-            <ion-col style="margin-left: 10%;">
-              <p>
-                <span class="subTitle" [style.color]="'#'+ this.configModel.secundaryColor"
-                  [style.font-family]="'Barlow_Condensed_Black'">{{ item.nombre }} x {{ item.quantity }}</span>
-                <br>
-                <span class="text" [style.color]="'#'+ this.configModel.secundaryColor">{{ item.tipoSeleccion }} :
-                  <ng-container *ngFor="let variante of item.category">
-                    {{ variante.name }}
-                  </ng-container>
-                </span>
-              </p>
-            </ion-col>
-            <ion-col style="max-width: 15%;">
-              <p>
-                <span class="text" [style.color]="'#'+ this.configModel.secundaryColor"
-                  [style.font-family]="'Barlow_Condensed_Black'">Precio</span>
-                <br>
-                <span class="subTitle" [style.color]="'#'+ this.configModel.secundaryColor">$ {{item.price}}
-                </span>
-              </p>
-            </ion-col>
-          </ion-row>
-        </ion-item>
-      </ion-grid>
-    </ion-list>
-  </ion-content>
+  <ng-container *ngIf="buy !==  null || shoppingCart !== null">
+    <ion-content style="height: 30%">
+      <ion-list>
+        <ion-grid>
+          <ion-item *ngFor="let item of shoppingCart">
+            <ion-row style="width: 100%;">
+              <ion-col style="max-width: 10%;">
+                <ion-avatar>
+                  <img src="{{item.imagenReferencia}}" />
+                </ion-avatar>
+              </ion-col>
+              <ion-col style="margin-left: 10%;">
+                <p>
+                  <span class="subTitle" [style.color]="'#'+ this.configModel.secundaryColor"
+                    [style.font-family]="'Barlow_Condensed_Black'">{{ item.nombre }} x {{ item.quantity }}</span>
+                  <br>
+                  <span class="text" [style.color]="'#'+ this.configModel.secundaryColor">{{ item.tipoSeleccion }} :
+                    <ng-container *ngFor="let variante of item.category">
+                      {{ variante.name }}
+                    </ng-container>
+                  </span>
+                </p>
+              </ion-col>
+              <ion-col style="max-width: 15%;">
+                <p>
+                  <span class="text" [style.color]="'#'+ this.configModel.secundaryColor"
+                    [style.font-family]="'Barlow_Condensed_Black'">Precio</span>
+                  <br>
+                  <span class="subTitle" [style.color]="'#'+ this.configModel.secundaryColor">$ {{item.price}}
+                  </span>
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </ion-grid>
+      </ion-list>
+    </ion-content>
 
     <p class="title" style="margin-bottom: -2%">
-      <span class="text" 
-      [style.color]="'#'+ this.configModel.secundaryColor"
+      <span class="text" [style.color]="'#'+ this.configModel.secundaryColor"
         [style.font-family]="'Barlow_Condensed_Black'">
         TOTAL
       </span>
       <br>
-      <span class="subTitle" 
-      [style.color]="'#'+ this.configModel.secundaryColor">
-      $ {{total}}
+      <span class="subTitle" [style.color]="'#'+ this.configModel.secundaryColor">
+        $ {{total}}
       </span>
     </p>
 
     <p class="subTitle">
-      <span  
-      [style.color]="'#'+ this.configModel.secundaryColor">
+      <span [style.color]="'#'+ this.configModel.secundaryColor">
         PAGAR Y CREAR MI CUENTA
       </span>
     </p>
-  
-    <button class="go" 
-    [style.background-color]="'#'+ this.configModel.primaryColor" 
-    (click)="saveOrder()">
+
+    <button class="go" [style.background-color]="'#'+ this.configModel.primaryColor" (click)="saveOrder()">
       PAGAR AHORA</button>
+  </ng-container>
+
+  <ng-container *ngIf="this.order !== undefined && (shoppingCart ===  undefined || shoppingCart === null)">
+
+    <div class="containerOrder">
+      <p class="description" [style.color]="'#'+ this.configModel.primaryColor" [style.font-family]="'Raleway_Variable'">
+        Recuerda presentar tu codigo QR al Barista que se encuentra ubicado en:
+      </p>
+  
+      <p [style.color]="'#'+ this.configModel.secundaryColor" [style.font-family]="'Raleway_Variable'">
+        {{this.order.address}}
+      </p>
+      <img src="{{this.order.qr}}">
+      <p [style.font-family]="'Raleway_Variable'">
+        <span [style.color]="'#'+ this.configModel.primaryColor">
+          CODIGO:
+        </span>
+        <span [style.color]="'#'+ this.configModel.secundaryColor">
+          {{this.order.id}}
+        </span>
+      </p>
+    </div>
+
+  </ng-container>
+
 
 </ion-content>

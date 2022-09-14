@@ -39,3 +39,15 @@ ion-content {
   margin-bottom: -20%;
 }
 
+.containerOrder{
+  width: 80%;
+  margin-left: 10%;
+  text-align: center;
+}
+
+
+@media (max-width: 375px) {
+  .timmer{
+    margin-top: 5%;
+  }
+}

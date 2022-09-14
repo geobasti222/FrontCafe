@@ -6,6 +6,7 @@ import { IonLoaderService } from 'src/app/services/ion-loader.service';
 import { BuyDetailModel, BuyModel } from 'src/app/models/buyModel';
 import { ShopService } from 'src/app/services/shop.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Order } from 'src/app/models/orderModel';
 
 declare let google;
 
@@ -22,6 +23,11 @@ export class ShoppingCartPage implements OnInit {
   total = 0;
   map = null;
 
+  order: Order;
+  hours : string;
+  minutes : string;
+  seconds : string;
+
   markers: Marker[] = [];
   latitude: any = 0; //latitude
   longitude: any = 0; //longitude
@@ -34,20 +40,31 @@ export class ShoppingCartPage implements OnInit {
     this.configModel = JSON.parse(localStorage.getItem('config'));
     this.shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
     this.buy = JSON.parse(localStorage.getItem('buy'));
-
-    console.log(this.shoppingCart);
+    this.order = JSON.parse(localStorage.getItem('order'));
     
+    if((this.shoppingCart === null || this.buy === null) && (this.order === null || this.order === undefined)) { 
+        this.router.navigate(['/products']);
+    }
 
   }
 
   ngOnInit() {
     this.loaderService.simpleLoader();
-    this.shoppingCart.forEach(element => {
-      this.total += element.price;
-    });
-    this.getCurrentCoordinates().then(  () => {
-      this.loaderService.dismissLoader();
-    });
+    if(this.shoppingCart !== null && this.buy === null){
+      this.shoppingCart.forEach(element => {
+        this.total += element.price;
+      });
+      this.getCurrentCoordinates().then(  () => {
+        this.loaderService.dismissLoader();
+      });
+    }
+    
+    if(this.order !== null && this.order !== undefined){
+      this.generateTimer();
+      this.getCurrentCoordinates().then(  () => {
+        this.loaderService.dismissLoader();
+      });
+    }
   }
 
   async getCurrentCoordinates() {
@@ -93,21 +110,44 @@ export class ShoppingCartPage implements OnInit {
         item.categoryProductId = element.category[0].id;
         item.unitPrice = element.category[0].price;
         item.quantity = element.quantity;
-        item.timer  = element.category[0].time;
-        console.log(item);
-        
+        item.timer  = element.category[0].time;        
         this.buy.buyDetail.push(item);
     });
-
+    if(JSON.parse(localStorage.getItem('order')) != null) {
+        localStorage.removeItem('order');
+    }
     this.shopService.saveOrder(this.buy).then(data => {
       if(data != null ) {
+        this.order = data;
+        this.generateTimer();
         localStorage.setItem('order', JSON.stringify(data));
+        localStorage.removeItem('shoppingCart');
+        localStorage.removeItem('buy');
+        this.shoppingCart = null;
+        this.buy = null;
         this.loaderService.dismissLoader();
-        this.router.navigate(['/home/order/' + data.id]);
+        //this.router.navigate(['/home/order/' + data.id]);
       } 
-
     });
-    
+  }
+
+  generateTimer(){
+    let string = '2020-01-01 ';    
+    var date = new Date(string);
+    date.setMinutes(date.getMinutes() +  this.order.timer - 1);
+    var padLeft = n => "00".substring(0, "00".length - n.length) + n;
+    var interval = setInterval(() => {
+
+      this.hours = padLeft(date.getHours() + "");
+      this.minutes = padLeft(date.getMinutes() + "");
+      this.seconds = padLeft(date.getSeconds() + "");
+
+      date = new Date(date.getTime() - 1000);
+      if (this.minutes == '00' && this.seconds == '00') {
+        clearInterval(interval);
+      }
+
+    }, 1000);
   }
 
 }
