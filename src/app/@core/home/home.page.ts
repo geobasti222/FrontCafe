@@ -19,8 +19,12 @@ export class HomePage implements OnInit {
     private logginService: LogginService
   ) {
     this.configModel = JSON.parse(localStorage.getItem('config'));
-    if (this.configModel == null || this.configModel == undefined) {
+    console.log(this.configModel);
+    
+    if (this.configModel === null || this.configModel === undefined) {
       this.logginService.getConfig().then((data) => {
+        console.log(data);
+        
         this.configModel = data;
         localStorage.setItem('config', JSON.stringify(data));
       });
