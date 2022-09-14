@@ -35,6 +35,9 @@ export class ShoppingCartPage implements OnInit {
     this.shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
     this.buy = JSON.parse(localStorage.getItem('buy'));
 
+    console.log(this.shoppingCart);
+    
+
   }
 
   ngOnInit() {
@@ -87,18 +90,23 @@ export class ShoppingCartPage implements OnInit {
     this.buy.buyDetail = [];
     this.shoppingCart.forEach(element => {
         let item =  new BuyDetailModel();
-        item.categoryProductId = element.categoryProductId;
-        item.unitPrice = element.unitPrice;
+        item.categoryProductId = element.category[0].id;
+        item.unitPrice = element.category[0].price;
         item.quantity = element.quantity;
+        item.timer  = element.category[0].time;
+        console.log(item);
+        
         this.buy.buyDetail.push(item);
     });
 
     this.shopService.saveOrder(this.buy).then(data => {
+      if(data != null ) {
         localStorage.setItem('order', JSON.stringify(data));
         this.loaderService.dismissLoader();
         this.router.navigate(['/home/order/' + data.id]);
-        
-    })
+      } 
+
+    });
     
   }
 

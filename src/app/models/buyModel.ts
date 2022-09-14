@@ -18,6 +18,6 @@ export class BuyDetailModel{
     categoryProductId: number;
     unitPrice: number;
     quantity: number;
-
+    timer : number;
     categoryProductMode :  VariantModel;
 } 
