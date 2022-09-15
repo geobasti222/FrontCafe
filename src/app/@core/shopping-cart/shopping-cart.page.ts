@@ -27,6 +27,7 @@ export class ShoppingCartPage implements OnInit {
   hours : string;
   minutes : string;
   seconds : string;
+  finished: boolean = false;
 
   markers: Marker[] = [];
   latitude: any = 0; //latitude
@@ -134,7 +135,8 @@ export class ShoppingCartPage implements OnInit {
   generateTimer(){
     let string = '2020-01-01 ';    
     var date = new Date(string);
-    date.setMinutes(date.getMinutes() +  this.order.timer - 1);
+    // date.setMinutes(date.getMinutes() +  this.order.timer - 1);
+    date.setMinutes(date.getMinutes() +  1);
     var padLeft = n => "00".substring(0, "00".length - n.length) + n;
     var interval = setInterval(() => {
 
@@ -144,6 +146,7 @@ export class ShoppingCartPage implements OnInit {
 
       date = new Date(date.getTime() - 1000);
       if (this.minutes == '00' && this.seconds == '00') {
+        this.finished = true;
         clearInterval(interval);
       }
 

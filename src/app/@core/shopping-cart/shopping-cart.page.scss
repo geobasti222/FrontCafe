@@ -1,3 +1,8 @@
+
+ion-content {
+  --ion-background-color: #f7f7f7 !important;
+}
+
 ion-title,
 ion-text,
 .title,
@@ -39,15 +44,16 @@ ion-content {
   margin-bottom: -20%;
 }
 
-.containerOrder{
+.containerOrder {
   width: 80%;
   margin-left: 10%;
   text-align: center;
 }
 
 
-@media (max-width: 375px) {
-  .timmer{
-    margin-top: 5%;
+.timmer {
+  font-size: 40px;
+  @media (max-width: 375px) {
+    font-size: 25px;
   }
 }

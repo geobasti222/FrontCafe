@@ -119,9 +119,7 @@ export class ProductDetailPage implements OnInit {
       this.presentAlert();
       return;
     } else {
-      let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
-      console.log(shoppingCart);
-      
+      let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));      
       if (shoppingCart !== undefined && shoppingCart !== null) {
         shoppingCart = shoppingCart.filter(element => element.id !== product.id);
       }else{

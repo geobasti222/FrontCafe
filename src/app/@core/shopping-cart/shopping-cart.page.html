@@ -19,8 +19,13 @@
       <ng-container *ngIf="this.order !== undefined && (shoppingCart ===  undefined || shoppingCart === null)">
         <p class="title">
           <span class="timmer" [style.color]="'#'+ this.configModel.primaryColor"
-            [style.font-family]="'Barlow_Condensed_Black'" [style.font-size]="'40px'">
-            {{hours}}:{{ minutes}}:{{ seconds}}
+            [style.font-family]="'Barlow_Condensed_Black'">
+            <ng-container *ngIf="finished">
+              ORDEN LISTA
+            </ng-container>
+            <ng-container *ngIf="!finished">
+              {{hours}}:{{ minutes}}:{{ seconds}}
+            </ng-container>
           </span>
         </p>
       </ng-container>

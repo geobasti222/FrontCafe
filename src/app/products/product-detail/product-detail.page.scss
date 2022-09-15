@@ -17,14 +17,19 @@ ion-text,
     text-align: center;
 }
 
+.title {
+    font-size: 4.0vh;
+}
+
 .description {
     width: 80%;
     margin-left: 10%;
+    font-size: 2vh;
 }
 
 .subTitle {
     font-family: Barlow_Condensed_Regular;
-    font-size: 1.35em;
+    font-size: 3vh;
 }
 
 .controller {
@@ -35,8 +40,8 @@ ion-text,
 }
 
 .logo {
-    width: 200px;
-    height: 200px;
+    width: 21vh;
+    height: 21vh;
     display: block;
     margin: auto;
 }
@@ -137,7 +142,8 @@ ion-scroll[scrollX] {
 }
 
 
-@media (max-width: 375px) {
+@media screen and (max-height: 640px),
+screen and (max-width: 375px) {
     .logo {
         width: 100px;
         height: 100px;

@@ -68,8 +68,6 @@ export class MapsPage implements OnInit {
               address: item.address
             }
           });
-          console.log(this.markers);
-
           // for (let index = 0; index < 10; index++) {
           //   this.markers.push(this.markers[0]);
           // }
@@ -135,14 +133,12 @@ export class MapsPage implements OnInit {
   }
 
   selectedMarker(marker: Marker) {
-    console.log(marker, this.open);
     this.subShopSelected = marker;
     // this.open = false;
     this.open = true;
   }
 
   isProgramingSelected(value: boolean) {
-    console.log(value);
     this.isPrograming = value;
   }
 
