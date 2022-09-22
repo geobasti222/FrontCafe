@@ -8,6 +8,7 @@ export class BuyModel{
     address: string;
     price: number;
     subShopId: number;
+    paymentId: number;
     buyDetail: BuyDetailModel[];
 }
 
@@ -20,4 +21,4 @@ export class BuyDetailModel{
     quantity: number;
     timer : number;
     categoryProductMode :  VariantModel;
-} 
+}
