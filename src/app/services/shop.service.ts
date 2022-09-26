@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Marker } from '../models/markerModel';
 import { BuyModel } from '../models/buyModel';
 import { Order } from '../models/orderModel';
+import { PaymentMethod } from '../models/paymentMethodModel';
 
 
 @Injectable({
@@ -28,6 +29,14 @@ export class ShopService {
         .toPromise()
         .then(res => res)
         .catch(err => Promise.reject(err.error.json() || 'Server error'));
+    }
+
+    public getPaymentMethods(): Promise<Array<PaymentMethod>> {
+      const findPaymentMethodsUrl = `${this.url}/Admin/FindPaymentMethod`;
+      return this.http.get<Array<PaymentMethod>>(findPaymentMethodsUrl)
+      .toPromise()
+      .then(res => res)
+      .catch(err => Promise.reject(err.error.json() || 'Server error'));
     }
 
 

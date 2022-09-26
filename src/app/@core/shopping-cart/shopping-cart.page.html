@@ -70,7 +70,7 @@
       </ion-list>
     </ion-content>
 
-    <p class="title" style="margin-bottom: -2%">
+    <p class="title" style="margin: 0px">
       <span class="text" [style.color]="'#'+ this.configModel.secundaryColor"
         [style.font-family]="'Barlow_Condensed_Black'">
         TOTAL
@@ -80,24 +80,42 @@
         $ {{total}}
       </span>
     </p>
+    <form [formGroup]="form" (ngSubmit)="saveOrder()">
+      <ion-radio-group formControlName="selectedPaymentMethod">
+        <ion-list-header class="payment-header">
+          <ion-label>
+            Método de pago
+          </ion-label>
+        </ion-list-header>
 
-    <p class="subTitle">
-      <span [style.color]="'#'+ this.configModel.secundaryColor">
-        PAGAR Y CREAR MI CUENTA
-      </span>
-    </p>
+        <ion-item *ngFor="let paymentMethod of paymentMethods" class="payment-item" style="border: none">
+          <ion-radio value={{paymentMethod.id}}></ion-radio>
+          <ion-label>{{paymentMethod.name}}</ion-label>
+          <ion-icon class="iconBack" name="cash-outline"></ion-icon>
+        </ion-item>
+      </ion-radio-group>
 
-    <button class="go" [style.background-color]="'#'+ this.configModel.primaryColor" (click)="saveOrder()">
-      PAGAR AHORA</button>
+
+      <p class="subTitle">
+        <span [style.color]="'#'+ this.configModel.secundaryColor">
+          PAGAR Y CREAR MI CUENTA
+        </span>
+      </p>
+
+      <button class="go" [style.background-color]="'#'+ this.configModel.primaryColor">
+        PAGAR AHORA</button>
+    </form>
+
   </ng-container>
 
   <ng-container *ngIf="this.order !== undefined && (shoppingCart ===  undefined || shoppingCart === null)">
 
     <div class="containerOrder">
-      <p class="description" [style.color]="'#'+ this.configModel.primaryColor" [style.font-family]="'Raleway_Variable'">
+      <p class="description" [style.color]="'#'+ this.configModel.primaryColor"
+        [style.font-family]="'Raleway_Variable'">
         Recuerda presentar tu codigo QR al Barista que se encuentra ubicado en:
       </p>
-  
+
       <p [style.color]="'#'+ this.configModel.secundaryColor" [style.font-family]="'Raleway_Variable'">
         {{this.order.address}}
       </p>

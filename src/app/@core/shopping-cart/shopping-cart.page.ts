@@ -7,6 +7,8 @@ import { BuyDetailModel, BuyModel } from 'src/app/models/buyModel';
 import { ShopService } from 'src/app/services/shop.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from 'src/app/models/orderModel';
+import { PaymentMethod } from 'src/app/models/paymentMethodModel';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 declare let google;
 
@@ -32,18 +34,24 @@ export class ShoppingCartPage implements OnInit {
   markers: Marker[] = [];
   latitude: any = 0; //latitude
   longitude: any = 0; //longitude
+
+  paymentMethods: Array<PaymentMethod>;
+  form: FormGroup;
+
   constructor(private geolocation: Geolocation,
     private loaderService : IonLoaderService,
     private router: Router,
-    private shopService: ShopService
+    private shopService: ShopService,
+    private formBuilder: FormBuilder
 
-  ) { 
+  ) {
+    this.buildForm();
     this.configModel = JSON.parse(localStorage.getItem('config'));
     this.shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
     this.buy = JSON.parse(localStorage.getItem('buy'));
     this.order = JSON.parse(localStorage.getItem('order'));
-    
-    if((this.shoppingCart === null || this.buy === null) && (this.order === null || this.order === undefined)) { 
+
+    if((this.shoppingCart === null || this.buy === null) && (this.order === null || this.order === undefined)) {
         this.router.navigate(['/products']);
     }
 
@@ -59,13 +67,14 @@ export class ShoppingCartPage implements OnInit {
         this.loaderService.dismissLoader();
       });
     }
-    
+
     if(this.order !== null && this.order !== undefined){
       this.generateTimer();
       this.getCurrentCoordinates().then(  () => {
         this.loaderService.dismissLoader();
       });
     }
+    this.getPaymentMethod();
   }
 
   async getCurrentCoordinates() {
@@ -104,42 +113,43 @@ export class ShoppingCartPage implements OnInit {
   }
 
   saveOrder(){
-    this.loaderService.simpleLoader();
-    this.buy.buyDetail = [];
-    this.shoppingCart.forEach(element => {
-        let item =  new BuyDetailModel();
-        item.categoryProductId = element.category[0].id;
-        item.unitPrice = element.category[0].price;
-        item.quantity = element.quantity;
-        item.timer  = element.category[0].time;        
-        this.buy.buyDetail.push(item);
-    });
-    if(JSON.parse(localStorage.getItem('order')) != null) {
-        localStorage.removeItem('order');
+    if(this.validForm()){
+      this.buy.paymentId = Number(this.form.get('selectedPaymentMethod').value);
+      this.buy.buyDetail = [];
+      this.shoppingCart.forEach(element => {
+          let item =  new BuyDetailModel();
+          item.categoryProductId = element.category[0].id;
+          item.unitPrice = element.category[0].price;
+          item.quantity = element.quantity;
+          item.timer  = element.category[0].time;
+          this.buy.buyDetail.push(item);
+      });
+      if(JSON.parse(localStorage.getItem('order')) != null) {
+          localStorage.removeItem('order');
+      }
+      this.shopService.saveOrder(this.buy).then(data => {
+        if(data != null ) {
+          this.order = data;
+          this.generateTimer();
+          localStorage.setItem('order', JSON.stringify(data));
+          localStorage.removeItem('shoppingCart');
+          localStorage.removeItem('buy');
+          this.shoppingCart = null;
+          this.buy = null;
+          this.loaderService.dismissLoader();
+          //this.router.navigate(['/home/order/' + data.id]);
+        }
+      });
     }
-    this.shopService.saveOrder(this.buy).then(data => {
-      if(data != null ) {
-        this.order = data;
-        this.generateTimer();
-        localStorage.setItem('order', JSON.stringify(data));
-        localStorage.removeItem('shoppingCart');
-        localStorage.removeItem('buy');
-        this.shoppingCart = null;
-        this.buy = null;
-        this.loaderService.dismissLoader();
-        //this.router.navigate(['/home/order/' + data.id]);
-      } 
-    });
   }
 
   generateTimer(){
-    let string = '2020-01-01 ';    
+    let string = '2020-01-01 ';
     var date = new Date(string);
     // date.setMinutes(date.getMinutes() +  this.order.timer - 1);
     date.setMinutes(date.getMinutes() +  1);
     var padLeft = n => "00".substring(0, "00".length - n.length) + n;
     var interval = setInterval(() => {
-
       this.hours = padLeft(date.getHours() + "");
       this.minutes = padLeft(date.getMinutes() + "");
       this.seconds = padLeft(date.getSeconds() + "");
@@ -153,4 +163,21 @@ export class ShoppingCartPage implements OnInit {
     }, 1000);
   }
 
+  private buildForm() {
+    this.form = this.formBuilder.group({
+      selectedPaymentMethod: ['1']
+    })
+  }
+
+  private getPaymentMethod() {
+    this.shopService.getPaymentMethods().then(data => {
+      if(!!data) {
+        this.paymentMethods = data;
+      }
+    })
+  }
+
+  private validForm() {
+    return !!this.form.get('selectedPaymentMethod').value && this.form.get('selectedPaymentMethod').value !== 0;
+  }
 }

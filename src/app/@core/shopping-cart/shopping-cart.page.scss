@@ -1,4 +1,3 @@
-
 ion-content {
   --ion-background-color: #f7f7f7 !important;
 }
@@ -50,10 +49,50 @@ ion-content {
   text-align: center;
 }
 
-
 .timmer {
   font-size: 40px;
   @media (max-width: 375px) {
     font-size: 25px;
   }
+}
+
+//-------------------------------------------------------------------------
+
+.payment-item {
+  --border-style: none;
+  --background: transparent;
+  ion-radio {
+    --color-checked: rgb(156, 111, 68) !important;
+    --color: rgb(156, 111, 68) !important;
+  }
+}
+
+:host::ng-deep .payment-item ion-radio {
+  margin-inline: 5%;
+}
+:host::ng-deep .payment-item ion-label {
+  color: #b4b4b4;
+  font-family: Barlow_Condensed_Regular;
+  letter-spacing: 1px;
+}
+:host::ng-deep .payment-item ion-icon {
+  color: #b4b4b4;
+}
+
+.payment-header {
+  ion-label {
+    color: rgba(109, 78, 46, 255);
+    font-family: Barlow_Condensed_Medium;
+    letter-spacing: 1px;
+    font-size: 1.6em;
+    padding-left: 10px;
+  }
+}
+.payment-item::part(native):nth-child(1) {
+  background: transparent !important;
+  border: none !important;
+}
+
+.payment-item::part(native) > .item-inner {
+  border: none !important;
 }

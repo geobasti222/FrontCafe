@@ -6,8 +6,8 @@ export const environment = {
 
   production: false,
   appCode : 1,
-  url: 'https://apiservices.lineadirectaec.com/ApiBarista'
-  // url: 'https://localhost:5001/'
+  // url: 'https://apiservices.lineadirectaec.com/ApiBarista'
+  url: 'https://localhost:5001'
 
 
 };
